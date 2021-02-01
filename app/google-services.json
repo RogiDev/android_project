@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "266537847350",
+    "project_id": "vaadapp-84358",
+    "storage_bucket": "vaadapp-84358.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:266537847350:android:a0102910c5f7dba195e697",
+        "android_client_info": {
+          "package_name": "com.example.vaadapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "266537847350-hohphmf4cts18r7qc55qjp0pltpp5ec2.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD1zpsELM5SpduNBtgY5GqQoI5jhkW9Kc8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "266537847350-hohphmf4cts18r7qc55qjp0pltpp5ec2.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
