@@ -2,7 +2,7 @@ package com.example.vaadapp.models;
 
 
 
-public class BuildingCommittee extends User {
+public class BuildingCommittee extends Person {
 
     private String seniority;
 

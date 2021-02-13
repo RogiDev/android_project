@@ -2,14 +2,11 @@ package com.example.vaadapp.Activities;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.Person;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 import com.example.vaadapp.models.*;
 import com.example.vaadapp.Fragments.LoginFragment;
@@ -49,8 +46,8 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
                             String uid = user.getUid();
                             FirebaseDatabase database = FirebaseDatabase.getInstance();
                             DatabaseReference myRef = database.getReference("users").child(uid);
-                            User newUser = new User(firstName,lastName,identity,email);
-                            myRef.setValue(newUser);
+//                            Tenant newPerson = new Tenant(firstName,lastName,identity,email);
+//                            myRef.setValue(newPerson);
                             Toast.makeText(AuthActivity.this, "You Sing Up Successfully.",
                                     Toast.LENGTH_LONG).show();
                             fragmentManager = getSupportFragmentManager();

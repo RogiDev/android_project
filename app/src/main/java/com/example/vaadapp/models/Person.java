@@ -1,16 +1,16 @@
 package com.example.vaadapp.models;
 
-public class User {
+abstract class Person {
 
     private String firstName, lastName, ID,email;
 
-    public User(String firstName, String lastName, String ID,String email) {
+    public Person(String firstName, String lastName, String ID, String email) {
         this.firstName=firstName;
         this.lastName=lastName;
         this.ID=ID;
         this.email=email;
     }
-    public User(){}
+    public Person(){}
 
     public String getFirstName() {
         return firstName;

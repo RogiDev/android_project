@@ -1,6 +1,6 @@
 package com.example.vaadapp.models;
 
-public class Tenant extends User {
+public class Tenant extends Person {
 
     private String apartmentNumber, monthlyPayment;
 
