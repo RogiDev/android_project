@@ -1,4 +1,6 @@
-package com.example.vaadapp;
+package com.example.vaadapp.models;
+
+import com.example.vaadapp.models.Apartment;
 
 import java.util.ArrayList;
 

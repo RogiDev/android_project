@@ -1,4 +1,4 @@
-package com.example.vaadapp;
+package com.example.vaadapp.models;
 
 public class Apartment {
 
