@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/personal_details"
-        android:icon="@drawable/personal_details_icon"
+        android:icon="@drawable/account_box_24"
         android:title="Profile" />
     <item
-        android:id="@+id/paymentrs"
-        android:icon="@drawable/payments_24"
+        android:id="@+id/payments"
+        android:icon="@drawable/payment_24"
         android:title="Payments" />
 </menu>

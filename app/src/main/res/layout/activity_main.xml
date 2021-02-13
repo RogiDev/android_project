@@ -4,17 +4,30 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"
+    tools:context=".Activities.MainActivity"
     android:id="@+id/drawer"
     >
     <include
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         layout="@layout/drawer_toolbar" />
-     <include
+    <Space
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <GridLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        layout="@layout/content_main" />
+        android:layout_marginTop="80dp"
+        android:padding="10dp">
+
+        <include
+            layout="@layout/content_main"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </GridLayout>
+
     <com.google.android.material.navigation.NavigationView
         android:layout_width="match_parent"
         android:layout_height="match_parent"

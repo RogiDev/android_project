@@ -1,24 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/userAvatarDrawer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="34dp"
-        tools:layout_editor_absoluteY="28dp"
-        tools:srcCompat="@tools:sample/avatars" />
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <TextView
-        android:id="@+id/displayUsername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="TextView"
-        tools:layout_editor_absoluteX="68dp"
-        tools:layout_editor_absoluteY="177dp" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:id="@+id/menuText"
+        android:layout_width="240dp"
+        android:layout_height="74dp"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="99dp"
+        android:gravity="center"
+        android:text="Navigation"
+        android:textSize="30dp"
+        tools:layout_editor_absoluteX="176dp"
+        tools:layout_editor_absoluteY="264dp" />
+</RelativeLayout>

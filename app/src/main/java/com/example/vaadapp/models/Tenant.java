@@ -1,14 +1,15 @@
-package com.example.vaadapp;
+package com.example.vaadapp.models;
 
-public class Tenant extends Person {
+public class Tenant extends User {
 
     private String apartmentNumber, monthlyPayment;
 
-    public Tenant(String firstName, String lastName, String ID, String apartmentNumber, String monthlyPayment){
-        super(firstName, lastName, ID);
+    public Tenant(String firstName, String lastName, String ID,String email, String apartmentNumber, String monthlyPayment){
+        super(firstName, lastName, ID,email);
         this.apartmentNumber=apartmentNumber;
         this.monthlyPayment=monthlyPayment;
     }
+    public Tenant(){}
 
     public String getApartmentNumber() {
         return apartmentNumber;

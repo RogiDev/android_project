@@ -1,13 +1,16 @@
-package com.example.vaadapp;
+package com.example.vaadapp.models;
 
-public class BuildingCommittee extends Person {
+
+
+public class BuildingCommittee extends User {
 
     private String seniority;
 
-    public BuildingCommittee(String firstName, String lastName, String ID, String seniority){
-        super(firstName, lastName, ID);
+    public BuildingCommittee(String firstName, String lastName, String ID,String email, String seniority){
+        super(firstName, lastName, ID,email);
         this.seniority=seniority;
     }
+    public BuildingCommittee(){}
 
     public String getSeniority() {
         return seniority;
