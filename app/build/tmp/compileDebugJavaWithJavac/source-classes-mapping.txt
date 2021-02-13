@@ -1,0 +1,23 @@
+com/example/vaadapp/Person.java
+ com.example.vaadapp.Person
+com/example/vaadapp/BuildingCommittee.java
+ com.example.vaadapp.BuildingCommittee
+com/example/vaadapp/Apartment.java
+ com.example.vaadapp.Apartment
+com/example/vaadapp/BuildConfig.java
+ com.example.vaadapp.BuildConfig
+com/example/vaadapp/Building.java
+ com.example.vaadapp.Building
+com/example/vaadapp/Tenant.java
+ com.example.vaadapp.Tenant
+com/example/vaadapp/LoginFragment.java
+ com.example.vaadapp.LoginFragment
+com/example/vaadapp/RegisterFragment.java
+ com.example.vaadapp.RegisterFragment
+com/example/vaadapp/MainActivity.java
+ com.example.vaadapp.MainActivity
+com/example/vaadapp/LogReg.java
+ com.example.vaadapp.LogReg
+ com.example.vaadapp.LogReg$1
+ com.example.vaadapp.LogReg$2
+ com.example.vaadapp.LogReg$3
