@@ -6,20 +6,33 @@ import java.util.ArrayList;
 
 public class Building {
 
-    private ArrayList<Apartment> arrApartment;
+    private static ArrayList<Apartment> arrApartment;
     private int buildingNumber;
     private BuildingCommittee buildingCommittee;
     private int MAXapartmentNumber;
+    private String Address;
 
-    public Building(int buildingNumber, BuildingCommittee buildingCommittee, int MAXapartmentNumber){
-        this.buildingNumber=buildingNumber;
-        this.buildingCommittee=buildingCommittee;
-        this.MAXapartmentNumber=MAXapartmentNumber;
-        this.arrApartment=new ArrayList<Apartment>(MAXapartmentNumber);
+    public Building(int buildingNumber, BuildingCommittee buildingCommittee, int MAXapartmentNumber, String Address){
+        if(this.buildingCommittee.getRole()==0){
+            this.buildingNumber=buildingNumber;
+            this.buildingCommittee=buildingCommittee;
+            this.MAXapartmentNumber=MAXapartmentNumber;
+            this.arrApartment=new ArrayList<Apartment>(MAXapartmentNumber);
+            this.Address=Address;
+        }
     }
 
     //GET&SET
-    public ArrayList<Apartment> getArrApartment() {
+
+    public void setAddress(String address) {
+        Address = address;
+    }
+
+    public String getAddress() {
+        return Address;
+    }
+
+    public static ArrayList<Apartment> getArrApartment() {
         return arrApartment;
     }
 

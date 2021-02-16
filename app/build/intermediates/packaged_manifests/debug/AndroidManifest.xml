@@ -23,7 +23,9 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.VaadApp" >
-        <activity android:name="com.example.vaadapp.LogReg" >
+        <activity
+            android:name="com.example.vaadapp.Activities.AuthActivity"
+            android:theme="@style/Theme.VaadApp.NoActionBar" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,7 +33,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.example.vaadapp.MainActivity"
+            android:name="com.example.vaadapp.Activities.MainActivity"
             android:theme="@style/Theme.VaadApp.NoActionBar" >
         </activity>
 

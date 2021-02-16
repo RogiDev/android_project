@@ -1,23 +1,32 @@
-com/example/vaadapp/Person.java
- com.example.vaadapp.Person
-com/example/vaadapp/BuildingCommittee.java
- com.example.vaadapp.BuildingCommittee
-com/example/vaadapp/Apartment.java
- com.example.vaadapp.Apartment
 com/example/vaadapp/BuildConfig.java
  com.example.vaadapp.BuildConfig
-com/example/vaadapp/Building.java
- com.example.vaadapp.Building
-com/example/vaadapp/Tenant.java
- com.example.vaadapp.Tenant
-com/example/vaadapp/LoginFragment.java
- com.example.vaadapp.LoginFragment
-com/example/vaadapp/RegisterFragment.java
- com.example.vaadapp.RegisterFragment
-com/example/vaadapp/MainActivity.java
- com.example.vaadapp.MainActivity
-com/example/vaadapp/LogReg.java
- com.example.vaadapp.LogReg
- com.example.vaadapp.LogReg$1
- com.example.vaadapp.LogReg$2
- com.example.vaadapp.LogReg$3
+com/example/vaadapp/Fragments/MainFragment.java
+ com.example.vaadapp.Fragments.MainFragment
+com/example/vaadapp/models/Person.java
+ com.example.vaadapp.models.Person
+com/example/vaadapp/models/BuildingCommittee.java
+ com.example.vaadapp.models.BuildingCommittee
+com/example/vaadapp/models/Tenant.java
+ com.example.vaadapp.models.Tenant
+com/example/vaadapp/Fragments/LoginFragment.java
+ com.example.vaadapp.Fragments.LoginFragment
+ com.example.vaadapp.Fragments.LoginFragment$1
+ com.example.vaadapp.Fragments.LoginFragment$2
+ com.example.vaadapp.Fragments.LoginFragment$onLoginFragmentBtnSelected
+com/example/vaadapp/models/Apartment.java
+ com.example.vaadapp.models.Apartment
+com/example/vaadapp/Fragments/PaymentsFragment.java
+ com.example.vaadapp.Fragments.PaymentsFragment
+com/example/vaadapp/models/Building.java
+ com.example.vaadapp.models.Building
+com/example/vaadapp/Activities/MainActivity.java
+ com.example.vaadapp.Activities.MainActivity
+com/example/vaadapp/Fragments/RegisterFragment.java
+ com.example.vaadapp.Fragments.RegisterFragment
+ com.example.vaadapp.Fragments.RegisterFragment$1
+ com.example.vaadapp.Fragments.RegisterFragment$2
+ com.example.vaadapp.Fragments.RegisterFragment$onRegisterFragmentBtnSelected
+com/example/vaadapp/Activities/AuthActivity.java
+ com.example.vaadapp.Activities.AuthActivity
+ com.example.vaadapp.Activities.AuthActivity$1
+ com.example.vaadapp.Activities.AuthActivity$2

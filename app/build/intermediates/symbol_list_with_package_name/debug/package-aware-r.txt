@@ -1548,6 +1548,7 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable account_box_24
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -1585,12 +1586,14 @@ drawable design_password_eye
 drawable design_snackbar_background
 drawable googleg_disabled_color_18
 drawable googleg_standard_color_18
+drawable ic_baseline_navigation_24
 drawable ic_launcher_background
 drawable ic_launcher_foreground
 drawable ic_mtrl_checked_circle
 drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
+drawable login_24
 drawable material_ic_calendar_black_24dp
 drawable material_ic_clear_black_24dp
 drawable material_ic_edit_black_24dp
@@ -1620,8 +1623,9 @@ drawable notification_template_icon_bg
 drawable notification_template_icon_low_bg
 drawable notification_tile_bg
 drawable notify_panel_notification_icon_bg
-drawable payments_24
-drawable personal_details_icon
+drawable payment_24
+drawable people_24
+drawable person_add_24
 drawable test_custom_background
 drawable tooltip_frame_dark
 drawable tooltip_frame_light
@@ -1696,6 +1700,7 @@ id action_text
 id actions
 id activity_chooser_view_content
 id add
+id address_spinner
 id adjust_height
 id adjust_width
 id alertTitle
@@ -1706,6 +1711,7 @@ id animateToEnd
 id animateToStart
 id asConfigured
 id async
+id auth_container
 id auto
 id autoComplete
 id autoCompleteToEnd
@@ -1770,7 +1776,6 @@ id direct
 id disableHome
 id disablePostScroll
 id disableScroll
-id displayUsername
 id dragDown
 id dragEnd
 id dragLeft
@@ -1784,6 +1789,7 @@ id easeInOut
 id easeOut
 id edit_query
 id emailText
+id emailTextView
 id end
 id end_padder
 id enterAlways
@@ -1796,6 +1802,8 @@ id fill
 id fill_horizontal
 id fill_vertical
 id filled
+id firstNameInput
+id firstNameTextview
 id fitToContents
 id fixed
 id flip
@@ -1817,6 +1825,8 @@ id honorRequest
 id icon
 id icon_group
 id icon_only
+id identityNumberInput
+id identityNumberTextview
 id ifRoom
 id ignore
 id ignoreRequest
@@ -1829,6 +1839,8 @@ id jumpToEnd
 id jumpToStart
 id labeled
 id largeLabel
+id lastNameInput
+id lastNameTextview
 id layout
 id left
 id light
@@ -1837,8 +1849,14 @@ id line3
 id linear
 id listMode
 id list_item
+id loginBtn
+id loginEmailInput
+id loginPasswordInput
+id loginPasswordText
+id loginTextView
 id masked
 id media_actions
+id menuText
 id message
 id middle
 id mini
@@ -1893,7 +1911,7 @@ id password
 id password_toggle
 id path
 id pathRelative
-id paymentrs
+id payments
 id peekHeight
 id percent
 id personal_details
@@ -1905,6 +1923,12 @@ id progress_horizontal
 id radio
 id ratio
 id rectangles
+id registerBtn
+id registerEmailInput
+id registerFragmentLayout
+id registerPassInput
+id registerPassTextview
+id registerTitleview
 id reverseSawtooth
 id right
 id right_icon
@@ -1938,6 +1962,7 @@ id showCustom
 id showHome
 id showTitle
 id sin
+id singUpBtn
 id skipCollapsed
 id slide
 id smallLabel
@@ -1981,9 +2006,11 @@ id test_radiobutton_app_button_tint
 id text
 id text2
 id textEnd
+id textPayments
 id textSpacerNoButtons
 id textSpacerNoTitle
 id textStart
+id textView
 id text_input_end_icon
 id text_input_start_icon
 id textinput_counter
@@ -2014,7 +2041,6 @@ id uniform
 id unlabeled
 id up
 id useLogo
-id userAvatarDrawer
 id view_offset_helper
 id visible
 id wide
@@ -2084,6 +2110,7 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
+layout activity_auth
 layout activity_log_reg
 layout activity_main
 layout content_main
@@ -2106,6 +2133,8 @@ layout design_text_input_start_icon
 layout drawer_header
 layout drawer_toolbar
 layout fragment_login
+layout fragment_main
+layout fragment_payments
 layout fragment_register
 layout mtrl_alert_dialog
 layout mtrl_alert_dialog_actions
@@ -2199,6 +2228,8 @@ string abc_searchview_description_voice
 string abc_shareactionprovider_share_with
 string abc_shareactionprovider_share_with_application
 string abc_toolbar_collapse_description
+string action_sign_in
+string action_sign_in_short
 string app_name
 string appbar_scrolling_view_behavior
 string bottom_sheet_behavior
@@ -2239,7 +2270,10 @@ string google_storage_bucket
 string hello_blank_fragment
 string hide_bottom_view_on_scroll_behavior
 string icon_content_description
+string invalid_password
+string invalid_username
 string item_view_role_description
+string login_failed
 string material_slider_range_end
 string material_slider_range_start
 string mtrl_badge_numberless_content_description
@@ -2284,8 +2318,11 @@ string path_password_eye_mask_strike_through
 string path_password_eye_mask_visible
 string path_password_strike_through
 string project_id
+string prompt_email
+string prompt_password
 string search_menu_title
 string status_bar_notification_info_overflow
+string welcome
 style AlertDialog_AppCompat
 style AlertDialog_AppCompat_Light
 style AndroidThemeColorAccentYellow

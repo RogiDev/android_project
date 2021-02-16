@@ -2,29 +2,38 @@ package com.example.vaadapp.models;
 
 public class Tenant extends Person {
 
-    private String apartmentNumber, monthlyPayment;
+    private int apartmentNumber, monthlyPayment, role=1;
 
-    public Tenant(String firstName, String lastName, String ID,String email, String apartmentNumber, String monthlyPayment){
+    public Tenant(String firstName, String lastName, int ID, String email, int apartmentNumber, int monthlyPayment){
         super(firstName, lastName, ID,email);
         this.apartmentNumber=apartmentNumber;
         this.monthlyPayment=monthlyPayment;
+        this.role=1;
     }
     public Tenant(){}
 
-    public String getApartmentNumber() {
+    public int getApartmentNumber() {
         return apartmentNumber;
     }
 
-    public void setApartmentNumber(String apartmentNumber) {
+    public void setApartmentNumber(int apartmentNumber) {
         this.apartmentNumber = apartmentNumber;
     }
 
-    public String getMonthlyPayment() {
+    public int getMonthlyPayment() {
         return monthlyPayment;
     }
 
-    public void setMonthlyPayment(String monthlyPayment) {
+    public void setMonthlyPayment(int monthlyPayment) {
         this.monthlyPayment = monthlyPayment;
+    }
+
+    public int getRole() {
+        return role;
+    }
+
+    public void setRole(int role) {
+        this.role = role;
     }
 
     @Override
@@ -32,6 +41,7 @@ public class Tenant extends Person {
         String fromPerson=super.toString();
         return fromPerson +
                 "Apartment Number: " + apartmentNumber +
-                ", Monthly Payment: " + monthlyPayment;
+                ", Monthly Payment: " + monthlyPayment +
+                ", Role: " + role;
     }
 }

@@ -1,16 +1,29 @@
 package com.example.vaadapp.models;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+
 abstract class Person {
 
-    private String firstName, lastName, ID,email;
+    private String firstName, lastName, email, UKey;
+    private int ID;
 
-    public Person(String firstName, String lastName, String ID, String email) {
+
+
+    public Person(String firstName, String lastName, int ID, String UKey) {
+        this.UKey=getKey();
         this.firstName=firstName;
         this.lastName=lastName;
         this.ID=ID;
-        this.email=email;
     }
+
     public Person(){}
+
+    private String getKey(){
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        String uid = user.getUid();
+        return(uid);
+    }
 
     public String getFirstName() {
         return firstName;
@@ -28,11 +41,11 @@ abstract class Person {
         this.lastName = lastName;
     }
 
-    public String getID() {
+    public int getID() {
         return ID;
     }
 
-    public void setID(String ID) {
+    public void setID(int ID) {
         this.ID = ID;
     }
 
@@ -42,4 +55,6 @@ abstract class Person {
                 ", Last Name: " + lastName +
                 ", ID: " + ID;
     }
+
+
 }
