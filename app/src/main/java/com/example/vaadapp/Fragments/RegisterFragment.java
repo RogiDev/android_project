@@ -10,9 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 
+import com.example.vaadapp.Activities.AuthActivity;
 import com.example.vaadapp.R;
 
 
@@ -51,6 +54,14 @@ public class RegisterFragment extends Fragment {
         firstName = view.findViewById(R.id.firstNameInput);
         lastName = view.findViewById(R.id.lastNameInput);
         identityNum = view.findViewById(R.id.identityNumberInput);
+        Spinner dropdown = view.findViewById(R.id.spinner1);
+//create a list of items for the spinner.
+        String[] items = new String[]{"1", "2", "three"};
+//create an adapter to describe how the items are displayed, adapters are used in several places in android.
+//There are multiple variations of this, but this is the basic variant.
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_dropdown_item);
+//set the spinners adapter to the previously created one.
+        dropdown.setAdapter(adapter);
         singUpBtn = view.findViewById(R.id.singUpBtn);
         singUpBtn.setBackgroundColor(Color.rgb(52,52,52));
         singUpBtn.setOnClickListener(new View.OnClickListener() {
