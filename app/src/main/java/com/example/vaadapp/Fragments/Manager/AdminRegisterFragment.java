@@ -14,11 +14,6 @@ import com.google.firebase.firestore.DocumentSnapshot;
 
 
 public class AdminRegisterFragment extends Fragment {
-    DocumentSnapshot buildings;
-
-    public void getBuildings(DocumentSnapshot buildingsArr){
-        this.buildings = buildingsArr;
-    }
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
