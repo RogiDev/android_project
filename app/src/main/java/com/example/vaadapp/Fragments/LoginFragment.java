@@ -72,5 +72,6 @@ public class LoginFragment extends Fragment {
     public interface onLoginFragmentBtnSelected{
         public void onLoginPressed(String email,String password);
         public void onRegisterPressed();
+        public void onRegisterAdminPressed();
     }
 }

@@ -9,62 +9,62 @@
 
 
     <TextView
-        android:id="@+id/registerTitleview"
+        android:id="@+id/adminRegisterTitle"
         android:layout_width="393dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="52dp"
-        android:layout_marginEnd="49dp"
-        android:layout_marginBottom="642dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginEnd="53dp"
+        android:layout_marginBottom="528dp"
         android:gravity="center"
-        android:text="Register"
+        android:text="Register As Manager"
         android:textSize="40sp"
         android:textStyle="bold" />
 
     <Button
-        android:id="@+id/singUpBtn"
+        android:id="@+id/singUpAdminBtn"
         android:layout_width="271dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="107dp"
-        android:layout_marginEnd="116dp"
-        android:layout_marginBottom="13dp"
+        android:layout_marginStart="109dp"
+        android:layout_marginEnd="114dp"
+        android:layout_marginBottom="18dp"
         android:text="Sing Up"
         app:icon="@drawable/person_add_24"
         app:iconPadding="2dp" />
 
     <EditText
-        android:id="@+id/registerPassInput"
+        android:id="@+id/registerAdminPassInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="36dp"
-        android:layout_marginBottom="251dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="37dp"
+        android:layout_marginBottom="119dp"
         android:ems="10"
         android:inputType="textPassword" />
 
     <EditText
-        android:id="@+id/lastNameInput"
+        android:id="@+id/lastNameAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="327dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="200dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/lastNameTextview"
+        android:id="@+id/lastNameAdminTextview"
         android:layout_width="400dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -72,59 +72,60 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="46dp"
         android:layout_marginEnd="48dp"
-        android:layout_marginBottom="379dp"
+        android:layout_marginBottom="253dp"
         android:text="Last Name" />
 
     <EditText
-        android:id="@+id/firstNameInput"
+        android:id="@+id/firstNameAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginEnd="46dp"
-        android:layout_marginBottom="403dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="279dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/firstNameTextview"
+        android:id="@+id/firstNameAdminTextview"
         android:layout_width="389dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="58dp"
-        android:layout_marginBottom="456dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginEnd="60dp"
+        android:layout_marginBottom="330dp"
         android:text="First Name" />
 
     <EditText
-        android:id="@+id/identityNumberInput"
+        android:id="@+id/identityNumberAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/identityNumberTextview"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginStart="45dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="46dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="359dp"
         android:ems="10"
         android:inputType="textPersonName" />
 
     <TextView
-        android:id="@+id/identityNumberTextview"
-        android:layout_width="326dp"
+        android:id="@+id/identityAdminNumberTextview"
+        android:layout_width="376dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginBottom="530dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginBottom="407dp"
         android:text="Identity Number" />
 
     <EditText
-        android:id="@+id/registerEmailInput"
+        android:id="@+id/registerEmailAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -132,25 +133,24 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="46dp"
-        android:layout_marginBottom="558dp"
+        android:layout_marginBottom="433dp"
         android:ems="10"
         android:inputType="textEmailAddress" />
 
     <TextView
-        android:id="@+id/emailTextView"
+        android:id="@+id/emailAdminTextView"
         android:layout_width="379dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="46dp"
-        android:layout_marginEnd="69dp"
-        android:layout_marginBottom="607dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="71dp"
+        android:layout_marginBottom="481dp"
         android:text="Email" />
 
-
     <TextView
-        android:id="@+id/registerPassTextview"
+        android:id="@+id/registerPassAdminTextview"
         android:layout_width="393dp"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
@@ -158,19 +158,20 @@
         android:layout_alignParentBottom="true"
         android:layout_marginStart="46dp"
         android:layout_marginEnd="55dp"
-        android:layout_marginBottom="300dp"
+        android:layout_marginBottom="175dp"
         android:text="Password" />
 
+
     <Spinner
-        android:id="@+id/address_spinner"
-        android:layout_width="116dp"
-        android:layout_height="40dp"
+        android:id="@+id/addressAdminSpinner"
+        android:layout_width="325dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="186dp"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="81dp"
         android:dropDownSelector="@color/purple_200"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -178,16 +179,6 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.498" />
-
-    <TextView
-        android:id="@+id/addressTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="50dp"
-        android:layout_marginBottom="228dp"
-        android:text="Choose Address" />
 
 
 </RelativeLayout>

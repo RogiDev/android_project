@@ -1,7 +1,9 @@
 package com.example.vaadapp.Fragments;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -12,20 +14,39 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.fragment.app.Fragment;
 import com.example.vaadapp.R;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 public class RegisterFragment extends Fragment {
 
     Button singUpBtn;
     EditText email,password,firstName,lastName,identityNum;
     private onRegisterFragmentBtnSelected listener;
-    Spinner spinner;
-    private static final String[] country = { "Israel0", "Israel1", "Israel2", "Israel3", "Israel4"};
-
+    Spinner buildingsSpinner;
+    Map<String,Object> buildingHash;
+    ArrayList<String> spinnerBuildingList;
+    TextView addressText;
     public RegisterFragment() {
         // Required empty public constructor
+    }
+
+
+    public void initSpinner(HashMap<String,Object> arr){
+        for (Map.Entry<String,Object> obj : arr.entrySet()){
+            if(obj.getKey().equals("address")){
+                spinnerBuildingList.add((String) obj.getValue());
+            }
+            Log.d(obj.getKey(), obj.getValue() + "");
+        }
     }
 
     @Override
@@ -47,6 +68,7 @@ public class RegisterFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_register, container, false);
+        spinnerBuildingList = new ArrayList<String>();
         email = view.findViewById(R.id.registerEmailInput);
         password = view.findViewById(R.id.registerPassInput);
         firstName = view.findViewById(R.id.firstNameInput);
@@ -54,15 +76,15 @@ public class RegisterFragment extends Fragment {
         identityNum = view.findViewById(R.id.identityNumberInput);
         singUpBtn = view.findViewById(R.id.singUpBtn);
         singUpBtn.setBackgroundColor(Color.rgb(52, 52, 52));
-
-        spinner = view.findViewById(R.id.address_spinner);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item, country);
+        addressText = view.findViewById(R.id.addressTextView);
+        buildingsSpinner = view.findViewById(R.id.address_spinner);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_spinner_item,spinnerBuildingList);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        buildingsSpinner.setAdapter(adapter);
+        buildingsSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Log.v("country", (String) parent.getItemAtPosition(position));
+
             }
 
             @Override
