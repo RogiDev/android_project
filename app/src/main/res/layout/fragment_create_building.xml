@@ -7,28 +7,6 @@
 
     <!-- TODO: Update blank fragment layout -->
     <TextView
-        android:id="@+id/building_num_text"
-        android:layout_width="227dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="139dp"
-        android:layout_marginBottom="580dp"
-        android:text="Building Number" />
-
-    <EditText
-        android:id="@+id/editTextTextPersonName"
-        android:layout_width="323dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginEnd="45dp"
-        android:layout_marginBottom="531dp"
-        android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Building Number" />
-
-    <TextView
         android:id="@+id/textView2"
         android:layout_width="208dp"
         android:layout_height="56dp"
@@ -39,5 +17,110 @@
         android:gravity="center"
         android:text="Create Building"
         android:textSize="30sp" />
+
+    <TextView
+        android:id="@+id/currentUser"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="93dp"
+        android:layout_marginBottom="567dp"
+        android:text="Hello, " />
+
+    <TextView
+        android:id="@+id/building_num_text"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="120dp"
+        android:layout_marginBottom="412dp"
+        android:text="Building Number" />
+
+    <TextView
+        android:id="@+id/eneteryText"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="126dp"
+        android:layout_marginBottom="307dp"
+        android:text="Enetery" />
+
+    <TextView
+        android:id="@+id/textAddress"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="136dp"
+        android:layout_marginBottom="520dp"
+        android:text="Address" />
+
+    <EditText
+        android:id="@+id/buildingNum"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="49dp"
+        android:layout_marginBottom="346dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Building Number" />
+
+    <EditText
+        android:id="@+id/enetery"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="234dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Enetery" />
+
+    <EditText
+        android:id="@+id/address"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="451dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Address" />
+
+    <TextView
+        android:id="@+id/apartmentNumber"
+        android:layout_width="227dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="142dp"
+        android:layout_marginBottom="189dp"
+        android:text="Number of Apartments" />
+
+    <EditText
+        android:id="@+id/MAXapartmentNumber"
+        android:layout_width="323dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="50dp"
+        android:layout_marginBottom="123dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Number of Apartments" />
+
+    <Button
+        android:id="@+id/saveBuilding"
+        android:layout_width="117dp"
+        android:layout_height="69dp"
+        android:onClick="newBuilding"
+        android:text="save" />
 
 </RelativeLayout>

@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
+import com.example.vaadapp.Fragments.CreateBuilding;
 import com.example.vaadapp.Fragments.LoginFragment;
 import com.example.vaadapp.Fragments.MainFragment;
 import com.example.vaadapp.Fragments.PaymentsFragment;
@@ -72,6 +73,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container,new PaymentsFragment());
+            fragmentTransaction.commit();
+        }
+        if(item.getItemId() == R.id.newBuilding){
+            fragmentManager = getSupportFragmentManager();
+            fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container,new CreateBuilding());
             fragmentTransaction.commit();
         }
         return true;

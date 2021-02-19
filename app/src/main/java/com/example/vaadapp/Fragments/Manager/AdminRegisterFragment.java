@@ -9,16 +9,16 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.vaadapp.R;
-import com.google.firebase.firestore.DocumentReference;
-import com.google.firebase.firestore.DocumentSnapshot;
+
 
 
 public class AdminRegisterFragment extends Fragment {
-    DocumentSnapshot buildings;
 
-    public void getBuildings(DocumentSnapshot buildingsArr){
-        this.buildings = buildingsArr;
+    public AdminRegisterFragment() {
+        // Required empty public constructor
     }
+
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

@@ -10,4 +10,8 @@
         android:id="@+id/payments"
         android:icon="@drawable/payment_24"
         android:title="Payments" />
+    <item
+        android:id="@+id/newBuilding"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="Create New Building" />
 </menu>

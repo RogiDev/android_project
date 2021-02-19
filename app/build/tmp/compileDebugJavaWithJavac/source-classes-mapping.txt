@@ -1,26 +1,17 @@
-com/example/vaadapp/BuildConfig.java
- com.example.vaadapp.BuildConfig
 com/example/vaadapp/Fragments/MainFragment.java
  com.example.vaadapp.Fragments.MainFragment
-com/example/vaadapp/models/Person.java
- com.example.vaadapp.models.Person
-com/example/vaadapp/models/BuildingCommittee.java
- com.example.vaadapp.models.BuildingCommittee
-com/example/vaadapp/models/Tenant.java
- com.example.vaadapp.models.Tenant
+com/example/vaadapp/BuildConfig.java
+ com.example.vaadapp.BuildConfig
+com/example/vaadapp/Fragments/PaymentsFragment.java
+ com.example.vaadapp.Fragments.PaymentsFragment
+com/example/vaadapp/Fragments/Manager/AdminRegisterFragment.java
+ com.example.vaadapp.Fragments.Manager.AdminRegisterFragment
 com/example/vaadapp/Fragments/LoginFragment.java
  com.example.vaadapp.Fragments.LoginFragment
  com.example.vaadapp.Fragments.LoginFragment$1
  com.example.vaadapp.Fragments.LoginFragment$2
+ com.example.vaadapp.Fragments.LoginFragment$3
  com.example.vaadapp.Fragments.LoginFragment$onLoginFragmentBtnSelected
-com/example/vaadapp/models/Apartment.java
- com.example.vaadapp.models.Apartment
-com/example/vaadapp/Fragments/PaymentsFragment.java
- com.example.vaadapp.Fragments.PaymentsFragment
-com/example/vaadapp/models/Building.java
- com.example.vaadapp.models.Building
-com/example/vaadapp/Activities/MainActivity.java
- com.example.vaadapp.Activities.MainActivity
 com/example/vaadapp/Fragments/RegisterFragment.java
  com.example.vaadapp.Fragments.RegisterFragment
  com.example.vaadapp.Fragments.RegisterFragment$1
@@ -30,3 +21,10 @@ com/example/vaadapp/Activities/AuthActivity.java
  com.example.vaadapp.Activities.AuthActivity
  com.example.vaadapp.Activities.AuthActivity$1
  com.example.vaadapp.Activities.AuthActivity$2
+ com.example.vaadapp.Activities.AuthActivity$3
+com/example/vaadapp/Fragments/CreateBuilding.java
+ com.example.vaadapp.Fragments.CreateBuilding
+ com.example.vaadapp.Fragments.CreateBuilding$1
+ com.example.vaadapp.Fragments.CreateBuilding$2
+com/example/vaadapp/Activities/MainActivity.java
+ com.example.vaadapp.Activities.MainActivity

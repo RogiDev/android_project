@@ -22,6 +22,7 @@ public class LoginFragment extends Fragment {
     private onLoginFragmentBtnSelected listener;
     private Button btnLogin;
     private Button btnRegister;
+    private Button btnAdminRegister;
     private EditText loginEmailInput,loginPasswordInput;
     public LoginFragment() {
         // Required empty public constructor
@@ -52,8 +53,11 @@ public class LoginFragment extends Fragment {
         loginPasswordInput = view.findViewById(R.id.loginPasswordInput);
         btnLogin = view.findViewById(R.id.loginBtn);
         btnRegister = view.findViewById(R.id.registerBtn);
+        btnAdminRegister = view.findViewById(R.id.adminRegisterBtn);
         btnLogin.setBackgroundColor(Color.rgb(52,52,52));
         btnRegister.setBackgroundColor(Color.rgb(52,52,52));
+        btnAdminRegister.setBackgroundColor(Color.rgb(52,52,52));
+
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,6 +68,12 @@ public class LoginFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 listener.onLoginPressed(loginEmailInput.getText().toString(),loginPasswordInput.getText().toString());
+            }
+        });
+        btnAdminRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onRegisterAdminPressed();
             }
         });
         return view;
