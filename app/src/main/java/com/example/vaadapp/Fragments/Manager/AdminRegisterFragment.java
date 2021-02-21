@@ -1,21 +1,41 @@
 package com.example.vaadapp.Fragments.Manager;
 
+import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
+import com.example.vaadapp.Fragments.RegisterFragment;
 import com.example.vaadapp.R;
 
 
 
 public class AdminRegisterFragment extends Fragment {
+    private EditText email,identityNum,firstName,lastName,password;
+    private AdminRegisterEvents listener;
+
+    Button singUpAdminBtn;
 
     public AdminRegisterFragment() {
         // Required empty public constructor
+    }
+
+    @Override
+    public void onAttach(@NonNull Context context) {
+        super.onAttach(context);
+        if (context instanceof AdminRegisterFragment.AdminRegisterEvents) {
+            listener = (AdminRegisterFragment.AdminRegisterEvents) context;
+        }else{
+            throw new ClassCastException(context.toString());
+        }
     }
 
 
@@ -29,6 +49,22 @@ public class AdminRegisterFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_admin_register, container, false);
+        email = view.findViewById(R.id.registerEmailAdminInput);
+        password = view.findViewById(R.id.registerAdminPassInput);
+        firstName = view.findViewById(R.id.firstNameAdminInput);
+        lastName = view.findViewById(R.id.lastNameAdminInput);
+        identityNum = view.findViewById(R.id.identityNumberAdminInput);
+        singUpAdminBtn = view.findViewById(R.id.singUpAdminBtn);
+        singUpAdminBtn.setBackgroundColor(Color.rgb(52, 52, 52));
+        singUpAdminBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onSingUpAdminPressed(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), identityNum.getText().toString());
+            }});
         return view;
+    }
+
+    public interface AdminRegisterEvents{
+        public void onSingUpAdminPressed(String email,String password,String firstName,String lastName,String identity);
     }
 }

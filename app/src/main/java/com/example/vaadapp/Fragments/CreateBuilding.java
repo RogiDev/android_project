@@ -44,8 +44,6 @@ public class CreateBuilding extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
-        String uid = user.getUid();
 
     }
 
@@ -67,7 +65,6 @@ public class CreateBuilding extends Fragment {
     }
 
     public void newBuilding(View view){
-
             FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
             String uid = user.getUid();
             //FirebaseDatabase database = FirebaseDatabase.getInstance();

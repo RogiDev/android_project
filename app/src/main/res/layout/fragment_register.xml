@@ -5,6 +5,7 @@
     android:id="@+id/registerFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:overScrollMode="ifContentScrolls"
     tools:context=".Fragments.RegisterFragment">
 
 
@@ -161,33 +162,34 @@
         android:layout_marginBottom="300dp"
         android:text="Password" />
 
-    <Spinner
-        android:id="@+id/address_spinner"
-        android:layout_width="116dp"
-        android:layout_height="40dp"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="44dp"
-        android:layout_marginBottom="186dp"
-        android:dropDownSelector="@color/purple_200"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.502"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.498" />
-
     <TextView
         android:id="@+id/addressTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginEnd="50dp"
+        android:layout_marginEnd="261dp"
         android:layout_marginBottom="228dp"
         android:text="Choose Address" />
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="300dp"
+        android:layout_height="59dp"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginEnd="62dp"
+        android:layout_marginBottom="165dp"
+        android:alwaysDrawnWithCache="true"
+        android:clickable="true"
+        android:clipChildren="true"
+        android:dropDownWidth="match_parent"
+        android:duplicateParentState="true"
+        android:gravity="center"
+        android:nestedScrollingEnabled="true"
+        android:overScrollMode="ifContentScrolls"
+        android:textAlignment="gravity"
+        android:textDirection="locale" />
 
 
 </RelativeLayout>

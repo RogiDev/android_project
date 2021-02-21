@@ -28,10 +28,16 @@ android {
         targetCompatibility JavaVersion.VERSION_1_8
     }
 }
+allprojects {
+    repositories {
+        maven { url "https://jitpack.io" }
+    }
+}
 
 dependencies {
 
     implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'com.github.arcadefire:nice-spinner:1.4.4'
     implementation 'com.google.android.material:material:1.2.1'
     implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'com.google.firebase:firebase-database:19.5.1'

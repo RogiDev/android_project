@@ -7,33 +7,43 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.vaadapp.Fragments.Manager.AdminRegisterFragment;
 import com.example.vaadapp.Fragments.LoginFragment;
 import com.example.vaadapp.Fragments.RegisterFragment;
+import com.example.vaadapp.Models.Building;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
+import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+
+import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Objects;
 
-public class AuthActivity extends AppCompatActivity implements LoginFragment.onLoginFragmentBtnSelected, RegisterFragment.onRegisterFragmentBtnSelected {
+public class AuthActivity extends AppCompatActivity implements LoginFragment.onLoginFragmentBtnSelected, RegisterFragment.onRegisterFragmentBtnSelected ,AdminRegisterFragment.AdminRegisterEvents {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FirebaseAuth mAuth;
     FirebaseFirestore db;
-    CollectionReference builingsRef;
+    CollectionReference usersRef;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,7 +51,7 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
         setContentView(R.layout.activity_auth);
         mAuth = FirebaseAuth.getInstance();
         db = FirebaseFirestore.getInstance();
-        builingsRef = db.collection("building");
+        usersRef = db.collection("users");
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(R.id.auth_container, new LoginFragment(), "loginFrag");
@@ -57,8 +67,21 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
                         if (task.isSuccessful()) {
                             FirebaseUser user = mAuth.getCurrentUser();
                             String uid = user.getUid();
-                            Toast.makeText(AuthActivity.this, "You Sing Up Successfully.",
-                                    Toast.LENGTH_LONG).show();
+                            usersRef
+                                    .add(user)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Toast.makeText(AuthActivity.this, "You Sing Up Successfully.", Toast.LENGTH_LONG).show();
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
+                                                    Toast.LENGTH_LONG).show();
+                                        }
+                                    });
                             fragmentManager = getSupportFragmentManager();
                             fragmentTransaction = fragmentManager.beginTransaction();
                             fragmentTransaction.replace(R.id.auth_container, new LoginFragment());
@@ -69,6 +92,15 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
                         }
                     }
                 });
+    }
+
+    @Override
+    public void onSelectedItemSpinner(Building building) {
+       Log.d("Bulding", building.toString());
+        RegisterFragment fragment = (RegisterFragment) fragmentManager.findFragmentByTag("registerFragment");
+        if (fragment != null) {
+            fragment.updateTextView(building.toString());
+        }
     }
 
     @Override
@@ -95,29 +127,8 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
 
     @Override
     public void onRegisterPressed() {
-        RegisterFragment fragment = new RegisterFragment();
-        builingsRef
-                .get()
-                .addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-                    @Override
-                    public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                        if (task.isSuccessful()) {
-                            Map<String,Object> buildingsList = new HashMap<>();
-                            for (QueryDocumentSnapshot document : task.getResult()) {
-                                buildingsList.putAll(document.getData());
-                            }
-                            fragment.initSpinner((HashMap<String, Object>) buildingsList);
-
-                        } else {
-                        }
-
-                    }
-                });
-        fragmentManager = getSupportFragmentManager();
-        fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.auth_container, fragment);
-        fragmentTransaction.commit();
-
+        Intent userRegisterActivity = new Intent(this, UserRegisterActivity.class);
+        startActivity(userRegisterActivity);
     }
 
     @Override
@@ -133,4 +144,8 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
     }
 
 
+    @Override
+    public void onSingUpAdminPressed(String email, String password, String firstName, String lastName, String identity) {
+
+    }
 }
