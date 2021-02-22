@@ -17,10 +17,10 @@ import com.example.vaadapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CustomSpinnerAdapter extends ArrayAdapter<Building> {
+public class CustomSpinnerAdapter<T> extends ArrayAdapter<T> {
     LayoutInflater layoutInflater;
-    private  ArrayList<Building> myarrayList;
-    public CustomSpinnerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<Building> objects) {
+    private  ArrayList<T> myarrayList;
+    public CustomSpinnerAdapter(@NonNull Context context, int resource, @NonNull ArrayList<T> objects) {
         super(context, resource, objects);
         layoutInflater = LayoutInflater.from(context);
         this.myarrayList = objects;

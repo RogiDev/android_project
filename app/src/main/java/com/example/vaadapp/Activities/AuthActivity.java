@@ -47,43 +47,6 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
         fragmentTransaction.commit();
     }
 
-//    @Override
-//    public void onSingUpPressed(String email, String password, String firstName, String lastName, String identity) {
-//        mAuth.createUserWithEmailAndPassword(email, password)
-//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-//                    @Override
-//                    public void onComplete(@NonNull Task<AuthResult> task) {
-//                        if (task.isSuccessful()) {
-//                            FirebaseUser user = mAuth.getCurrentUser();
-//                            String uid = user.getUid();
-//                            usersRef
-//                                    .add(user)
-//                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-//                                        @Override
-//                                        public void onSuccess(DocumentReference documentReference) {
-//                                            Toast.makeText(AuthActivity.this, "You Sing Up Successfully.", Toast.LENGTH_LONG).show();
-//                                        }
-//                                    })
-//                                    .addOnFailureListener(new OnFailureListener() {
-//                                        @Override
-//                                        public void onFailure(@NonNull Exception e) {
-//                                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
-//                                                    Toast.LENGTH_LONG).show();
-//                                        }
-//                                    });
-//                            fragmentManager = getSupportFragmentManager();
-//                            fragmentTransaction = fragmentManager.beginTransaction();
-//                            fragmentTransaction.replace(R.id.auth_container, new LoginFragment());
-//                            fragmentTransaction.commit();
-//                        } else {
-//                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
-//                                    Toast.LENGTH_LONG).show();
-//                        }
-//                    }
-//                });
-//    }
-
-
     @Override
     public void onLoginPressed(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
