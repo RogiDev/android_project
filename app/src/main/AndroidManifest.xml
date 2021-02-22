@@ -9,7 +9,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VaadApp">
-        <activity android:name=".Activities.UserRegisterActivity"></activity>
+        <activity  android:theme="@style/Theme.VaadApp.NoActionBar" android:name=".Activities.UserRegisterActivity"></activity>
         <activity
             android:name=".Activities.AuthActivity"
             android:theme="@style/Theme.VaadApp.NoActionBar">

@@ -34,4 +34,5 @@ public class Apartment {
         this.user = user;
     }
 
+
 }

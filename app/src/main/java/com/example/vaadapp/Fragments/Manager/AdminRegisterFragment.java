@@ -13,7 +13,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 
-import com.example.vaadapp.Fragments.RegisterFragment;
 import com.example.vaadapp.R;
 
 

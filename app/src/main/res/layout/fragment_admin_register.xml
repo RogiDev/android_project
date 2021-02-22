@@ -1,167 +1,205 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/registerFragmentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Fragments.RegisterFragment">
-
+    tools:context=".Fragments.Manager.AdminRegisterFragment">
 
     <TextView
         android:id="@+id/adminRegisterTitle"
-        android:layout_width="393dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="48dp"
-        android:layout_marginEnd="53dp"
-        android:layout_marginBottom="528dp"
+        android:layout_width="382dp"
+        android:layout_height="62dp"
         android:gravity="center"
         android:text="Register As Manager"
         android:textSize="40sp"
-        android:textStyle="bold" />
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.551"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
 
     <Button
         android:id="@+id/singUpAdminBtn"
         android:layout_width="271dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="109dp"
+        android:layout_marginTop="54dp"
         android:layout_marginEnd="114dp"
-        android:layout_marginBottom="18dp"
         android:text="Sing Up"
         app:icon="@drawable/person_add_24"
-        app:iconPadding="2dp" />
+        app:iconPadding="2dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.469"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerAdminPassInput"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/registerAdminPassInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="37dp"
         android:layout_marginBottom="119dp"
         android:ems="10"
-        android:inputType="textPassword" />
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerPassAdminTextview"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/lastNameAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="46dp"
         android:layout_marginEnd="45dp"
         android:layout_marginBottom="200dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastNameAdminTextview"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/lastNameAdminTextview"
-        android:layout_width="400dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="285dp"
+        android:layout_height="20dp"
         android:layout_marginStart="46dp"
-        android:layout_marginEnd="48dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="46dp"
         android:layout_marginBottom="253dp"
-        android:text="Last Name" />
+        android:text="Last Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameAdminInput"
+        app:layout_constraintVertical_bias="0.194" />
 
     <EditText
         android:id="@+id/firstNameAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="44dp"
         android:layout_marginEnd="47dp"
         android:layout_marginBottom="279dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/firstNameAdminTextview"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/firstNameAdminTextview"
-        android:layout_width="389dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="285dp"
+        android:layout_height="20dp"
         android:layout_marginStart="45dp"
+        android:layout_marginTop="7dp"
         android:layout_marginEnd="60dp"
-        android:layout_marginBottom="330dp"
-        android:text="First Name" />
+        android:layout_marginBottom="295dp"
+        android:text="First Name"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/identityNumberAdminInput"
+        app:layout_constraintVertical_bias="0.0" />
 
     <EditText
         android:id="@+id/identityNumberAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="44dp"
-        android:layout_marginTop="24dp"
         android:layout_marginEnd="47dp"
-        android:layout_marginBottom="359dp"
+        android:layout_marginBottom="365dp"
         android:ems="10"
-        android:inputType="textPersonName" />
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/identityAdminNumberTextview"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/identityAdminNumberTextview"
-        android:layout_width="376dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="285dp"
+        android:layout_height="20dp"
         android:layout_marginStart="45dp"
-        android:layout_marginBottom="407dp"
-        android:text="Identity Number" />
+        android:layout_marginTop="5dp"
+        android:layout_marginEnd="46dp"
+        android:layout_marginBottom="408dp"
+        android:text="Identity Number"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.028"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerEmailAdminInput"
+        app:layout_constraintVertical_bias="0.127" />
 
     <EditText
         android:id="@+id/registerEmailAdminInput"
         android:layout_width="320dp"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
         android:layout_marginStart="45dp"
         android:layout_marginEnd="46dp"
         android:layout_marginBottom="433dp"
         android:ems="10"
-        android:inputType="textEmailAddress" />
+        android:inputType="textEmailAddress"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/emailAdminTextView"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/emailAdminTextView"
-        android:layout_width="379dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="44dp"
-        android:layout_marginEnd="71dp"
+        android:layout_width="285dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="27dp"
+        android:layout_marginEnd="46dp"
         android:layout_marginBottom="481dp"
-        android:text="Email" />
+        android:text="Email"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/adminRegisterTitle"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/registerPassAdminTextview"
-        android:layout_width="393dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
+        android:layout_width="285dp"
+        android:layout_height="20dp"
         android:layout_marginStart="46dp"
+        android:layout_marginTop="4dp"
         android:layout_marginEnd="55dp"
         android:layout_marginBottom="175dp"
-        android:text="Password" />
+        android:text="Password"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lastNameAdminInput"
+        app:layout_constraintVertical_bias="0.194" />
 
 
-</RelativeLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
 
 

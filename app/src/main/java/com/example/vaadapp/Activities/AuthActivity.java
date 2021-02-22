@@ -8,12 +8,10 @@ import androidx.fragment.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.widget.AdapterView;
 import android.widget.Toast;
 
 import com.example.vaadapp.Fragments.Manager.AdminRegisterFragment;
 import com.example.vaadapp.Fragments.LoginFragment;
-import com.example.vaadapp.Fragments.RegisterFragment;
 import com.example.vaadapp.Models.Building;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -26,17 +24,8 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
 
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Objects;
-
-public class AuthActivity extends AppCompatActivity implements LoginFragment.onLoginFragmentBtnSelected, RegisterFragment.onRegisterFragmentBtnSelected ,AdminRegisterFragment.AdminRegisterEvents {
+public class AuthActivity extends AppCompatActivity implements LoginFragment.onLoginFragmentBtnSelected ,AdminRegisterFragment.AdminRegisterEvents {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
     FirebaseAuth mAuth;
@@ -58,50 +47,42 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
         fragmentTransaction.commit();
     }
 
-    @Override
-    public void onSingUpPressed(String email, String password, String firstName, String lastName, String identity) {
-        mAuth.createUserWithEmailAndPassword(email, password)
-                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String uid = user.getUid();
-                            usersRef
-                                    .add(user)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Toast.makeText(AuthActivity.this, "You Sing Up Successfully.", Toast.LENGTH_LONG).show();
-                                        }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
-                                                    Toast.LENGTH_LONG).show();
-                                        }
-                                    });
-                            fragmentManager = getSupportFragmentManager();
-                            fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.auth_container, new LoginFragment());
-                            fragmentTransaction.commit();
-                        } else {
-                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
-                                    Toast.LENGTH_LONG).show();
-                        }
-                    }
-                });
-    }
+//    @Override
+//    public void onSingUpPressed(String email, String password, String firstName, String lastName, String identity) {
+//        mAuth.createUserWithEmailAndPassword(email, password)
+//                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            FirebaseUser user = mAuth.getCurrentUser();
+//                            String uid = user.getUid();
+//                            usersRef
+//                                    .add(user)
+//                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+//                                        @Override
+//                                        public void onSuccess(DocumentReference documentReference) {
+//                                            Toast.makeText(AuthActivity.this, "You Sing Up Successfully.", Toast.LENGTH_LONG).show();
+//                                        }
+//                                    })
+//                                    .addOnFailureListener(new OnFailureListener() {
+//                                        @Override
+//                                        public void onFailure(@NonNull Exception e) {
+//                                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
+//                                                    Toast.LENGTH_LONG).show();
+//                                        }
+//                                    });
+//                            fragmentManager = getSupportFragmentManager();
+//                            fragmentTransaction = fragmentManager.beginTransaction();
+//                            fragmentTransaction.replace(R.id.auth_container, new LoginFragment());
+//                            fragmentTransaction.commit();
+//                        } else {
+//                            Toast.makeText(AuthActivity.this, "Sing Up failed.",
+//                                    Toast.LENGTH_LONG).show();
+//                        }
+//                    }
+//                });
+//    }
 
-    @Override
-    public void onSelectedItemSpinner(Building building) {
-       Log.d("Bulding", building.toString());
-        RegisterFragment fragment = (RegisterFragment) fragmentManager.findFragmentByTag("registerFragment");
-        if (fragment != null) {
-            fragment.updateTextView(building.toString());
-        }
-    }
 
     @Override
     public void onLoginPressed(String email, String password) {
