@@ -47,7 +47,7 @@
     <EditText
         android:id="@+id/registerPassInput"
         android:layout_width="290dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="398dp"
         android:layout_marginEnd="61dp"
@@ -62,7 +62,7 @@
     <EditText
         android:id="@+id/lastNameInput"
         android:layout_width="290dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="61dp"
         android:layout_marginTop="323dp"
         android:layout_marginEnd="60dp"
@@ -91,7 +91,7 @@
     <EditText
         android:id="@+id/firstNameInput"
         android:layout_width="290dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="61dp"
         android:layout_marginTop="259dp"
         android:layout_marginEnd="60dp"
@@ -120,7 +120,7 @@
     <EditText
         android:id="@+id/identityNumberInput"
         android:layout_width="290dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="199dp"
         android:layout_marginEnd="61dp"
@@ -149,7 +149,7 @@
     <EditText
         android:id="@+id/registerEmailInput"
         android:layout_width="290dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
         android:layout_marginTop="145dp"
         android:layout_marginEnd="61dp"
@@ -206,7 +206,7 @@
     <Spinner
         android:id="@+id/myCustomSpinner"
         android:layout_width="287dp"
-        android:layout_height="41dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="62dp"
         android:layout_marginTop="454dp"
         android:layout_marginEnd="62dp"
@@ -219,7 +219,7 @@
     <Spinner
         android:id="@+id/apartmentSpinner"
         android:layout_width="290dp"
-        android:layout_height="30dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="62dp"
         android:layout_marginTop="529dp"
         android:layout_marginEnd="59dp"

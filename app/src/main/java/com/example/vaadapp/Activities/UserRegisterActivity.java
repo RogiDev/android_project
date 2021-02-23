@@ -114,7 +114,8 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
                         apartmentSpinnerAdapter.notifyDataSetChanged();
                     }
                     if(parent.getAdapter().equals(apartmentSpinnerAdapter)){
-                        apartments.add(apartments.get(position));
+                        choosenApartment = apartments.get(position);
+                        apartments.add(choosenApartment);
                         Set<Integer> listWithoutDuplicates = new LinkedHashSet<Integer>(apartments);
                         apartments.clear();
                         apartments.addAll(listWithoutDuplicates);
