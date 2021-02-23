@@ -2,13 +2,13 @@ package com.example.vaadapp.Models;
 
 public class Payments {
     private String month,userId,_id;
-    private int amonut;
+    private int amount;
 
-    public Payments(String month, String userId, String _id, int amonut) {
+    public Payments(String month, String userId, String _id, int amount) {
         this.month = month;
         this.userId = userId;
         this._id = _id;
-        this.amonut = amonut;
+        this.amount = amount;
     }
 
     public Payments() {
@@ -31,10 +31,10 @@ public class Payments {
     }
 
     public int getAmonut() {
-        return amonut;
+        return amount;
     }
 
     public void setAmonut(int amonut) {
-        this.amonut = amonut;
+        this.amount = amonut;
     }
 }
