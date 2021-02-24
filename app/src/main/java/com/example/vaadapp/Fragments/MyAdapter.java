@@ -9,6 +9,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.vaadapp.Models.Apartment;
 import com.example.vaadapp.Models.Payments;
 import com.example.vaadapp.R;
 
@@ -16,12 +17,12 @@ import java.util.ArrayList;
 
 public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
-    ArrayList<Payments> payList;
+    ArrayList<Apartment> list;
     Context context;
 
-    public MyAdapter(Context context, ArrayList<Payments> payList){
+    public MyAdapter(Context context, ArrayList<Apartment> list){
         this.context=context;
-        this.payList=payList;
+        this.list=list;
     }
 
     @NonNull
@@ -33,15 +34,13 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
     @Override
     public void onBindViewHolder(@NonNull MyViewHolder holder, int position) {
-        Payments payment = payList.get(position);
-        holder.userIdRe.setText(payment.getUserId());
-        holder.amountRe.setText(payment.getAmonut());
-        holder.monthRe.setText(payment.getMonth());
+        Apartment apartment = list.get(position);
+        holder.userIdRe.setText(apartment.getApartmentNumber());
     }
 
     @Override
     public int getItemCount() {
-        return payList.size();
+        return list.size();
     }
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
@@ -50,23 +49,21 @@ public class MyAdapter extends RecyclerView.Adapter<MyAdapter.MyViewHolder> {
 
         public MyViewHolder(@NonNull View itemView) {
             super(itemView);
-            //userIdRe=itemView.findViewById(R.id.userIdText);
-            //amountRe=itemView.findViewById(R.id.amountText);
-            //monthRe=itemView.findViewById(R.id.monthText);
-
+            userIdRe=itemView.findViewById(R.id.userIdText);
         }
     }
 
-    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
-
-        private TextView view;
-        public RecyclerViewHolder(@NonNull View itemView) {
-            super(itemView);
-            view = itemView.findViewById(R.id.randomText);
-        }
-
-        public TextView getView(){
-            return view;
-        }
-    }
+//    public static class RecyclerViewHolder extends RecyclerView.ViewHolder {
+//
+//        private TextView view;
+//        public RecyclerViewHolder(@NonNull View itemView) {
+//            super(itemView);
+//            view = itemView.findViewById(R.id.randomText);
+//        }
+//
+//        public TextView getView(){
+//            return view;
+//        }
+//    }
 }
+

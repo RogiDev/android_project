@@ -108,7 +108,7 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
                     if(parent.getAdapter().equals(buildingSpinnerAdapter)) {
                         choosenBuildingId = buildings.get(position).get_id();
                         apartments.clear();
-                        for (int i = 1; i <= buildings.get(position).getMaxApartements(); i++) {
+                        for (int i = 1; i <= buildings.get(position).getMaxApartments(); i++) {
                             apartments.add(i);
                         }
                         apartmentSpinnerAdapter.notifyDataSetChanged();
@@ -132,7 +132,8 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onClick(View v) {
         Apartment apartmentToSave = new Apartment(choosenApartment);
-        db.collection("building").document(choosenBuildingId).collection("apartments")
+        db.collection("building")
+                .document(choosenBuildingId).collection("apartments")
                 .add(apartmentToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
             @Override
             public void onSuccess(DocumentReference documentReference) {

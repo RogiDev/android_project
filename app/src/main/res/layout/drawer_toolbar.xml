@@ -7,9 +7,9 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:textAlignment="center"
-        app:titleTextColor="#FFF"
         android:layout_height="66dp"
-        android:background="#343434" />
+        android:background="#343434"
+        android:textAlignment="center"
+        app:titleTextColor="#FFF" />
 
 </LinearLayout>

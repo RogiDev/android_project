@@ -13,8 +13,8 @@
         android:id="@+id/textView2"
         android:layout_width="208dp"
         android:layout_height="56dp"
-        android:layout_marginEnd="112dp"
-        android:layout_marginBottom="504dp"
+        android:layout_marginEnd="116dp"
+        android:layout_marginBottom="528dp"
         android:gravity="center"
         android:text="Create Building"
         android:textSize="30sp"
@@ -22,21 +22,11 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <TextView
-        android:id="@+id/currentUser"
-        android:layout_width="227dp"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="93dp"
-        android:layout_marginBottom="567dp"
-        android:text="Hello, "
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-    <TextView
         android:id="@+id/building_num_text"
         android:layout_width="227dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="408dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="372dp"
         android:text="Building Number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -45,8 +35,8 @@
         android:id="@+id/eneteryText"
         android:layout_width="227dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="136dp"
-        android:layout_marginBottom="304dp"
+        android:layout_marginEnd="140dp"
+        android:layout_marginBottom="268dp"
         android:text="Enetery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -56,7 +46,7 @@
         android:layout_width="227dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="136dp"
-        android:layout_marginBottom="520dp"
+        android:layout_marginBottom="488dp"
         android:text="Address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -65,11 +55,10 @@
         android:id="@+id/buildingNum"
         android:layout_width="323dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="340dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="304dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Building Number"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -77,11 +66,10 @@
         android:id="@+id/enetery"
         android:layout_width="323dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="232dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="200dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Enetery"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -89,11 +77,10 @@
         android:id="@+id/address"
         android:layout_width="323dp"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="451dp"
+        android:layout_marginEnd="44dp"
+        android:layout_marginBottom="416dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Address"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -102,7 +89,7 @@
         android:layout_width="227dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="136dp"
-        android:layout_marginBottom="192dp"
+        android:layout_marginBottom="164dp"
         android:text="Number of Apartments"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
@@ -112,10 +99,9 @@
         android:layout_width="323dp"
         android:layout_height="wrap_content"
         android:layout_marginEnd="40dp"
-        android:layout_marginBottom="124dp"
+        android:layout_marginBottom="104dp"
         android:ems="10"
         android:inputType="textPersonName"
-        android:text="Number of Apartments"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
@@ -123,9 +109,8 @@
         android:id="@+id/saveBuilding"
         android:layout_width="117dp"
         android:layout_height="69dp"
-        android:layout_marginStart="152dp"
-        android:layout_marginTop="632dp"
-        android:onClick="newBuilding"
+        android:layout_marginStart="144dp"
+        android:layout_marginTop="516dp"
         android:text="save"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
