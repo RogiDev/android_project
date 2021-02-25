@@ -105,23 +105,14 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
                             String uid = user.getUid();
                             // Write a message to the database
                             Manager newManager = new Manager(seniority, firstName, lastName, uid, email, identity);
-                            db.collection("managers").add(newManager)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                            db.collection("managers").document(uid).set(newManager)
+                                    .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.d("tah", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                            Toast.makeText(AuthActivity.this, "Authentication Success.",
-                                                    Toast.LENGTH_SHORT).show();
+                                        public void onSuccess(Void aVoid) {
+                                            Toast.makeText(AuthActivity.this, "success", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(AuthActivity.this, AuthActivity.class));
                                         }
-                                    })
-                                    .addOnFailureListener(new OnFailureListener() {
-                                        @Override
-                                        public void onFailure(@NonNull Exception e) {
-                                            Log.w("la", "Error adding document", e);
-                                        }
                                     });
-
                         } else {
                             // If sign in fails, display a message to the user.
                             Log.w("Fail", "createUserWithEmail:failure", task.getException());
