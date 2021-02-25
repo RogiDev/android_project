@@ -3,7 +3,7 @@ package com.example.vaadapp.Models;
 public class Manager {
 
     private int seniority;
-    private String firstName, lastName, _id, email,apartmentId,buildingId;
+    private String firstName, lastName, _id, email,buildingId;
 
 
     public Manager(int seniority, String firstName, String lastName, String _id, String email) {
@@ -16,9 +16,6 @@ public class Manager {
 
     public Manager(){}
 
-    public void setApartmentId(String apartmentId) {
-        this.apartmentId = apartmentId;
-    }
 
     public void setBuildingId(String buildingId) {
         this.buildingId = buildingId;
@@ -26,10 +23,6 @@ public class Manager {
 
     public String get_id() {
         return _id;
-    }
-
-    public String getApartmentId() {
-        return apartmentId;
     }
 
     public String getBuildingId() {

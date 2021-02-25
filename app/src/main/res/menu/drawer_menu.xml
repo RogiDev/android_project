@@ -14,5 +14,5 @@
         android:id="@+id/newBuilding"
         android:icon="@android:drawable/ic_dialog_dialer"
         android:title="Create New Building"
-        android:visible="true" />
+        android:visible="false" />
 </menu>

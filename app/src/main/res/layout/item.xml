@@ -6,25 +6,7 @@
     android:layout_margin="8dp">
 
     <TextView
-        android:id="@+id/userIdText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="This is some temp text" />
-
-    <TextView
-        android:id="@+id/amountText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="This is some temp text" />
-
-    <TextView
-        android:id="@+id/monthText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        tools:text="This is some temp text" />
-
-    <TextView
-        android:id="@+id/randomText"
+        android:id="@+id/apartmentText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         tools:text="This is some temp text" />

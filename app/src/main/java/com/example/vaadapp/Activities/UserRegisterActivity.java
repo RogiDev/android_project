@@ -35,6 +35,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
@@ -148,23 +149,15 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
                                     String uid = user.getUid();
                                     Log.d("added new apartment", "DocumentSnapshot added with ID: " + documentReference.getId());
                                     String apartId = documentReference.getId();
-                                    // Write a message to the database
+                                    documentReference.update("_id",apartId);
+                                    // Write a message to the database.0
                                     User newUser = new User(firstName.getText().toString(),lastName.getText().toString(),
                                             uid,email.getText().toString(),apartId,choosenBuildingId);
-                                    db.collection("users").add(newUser)
-                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                                        @Override
-                                        public void onSuccess(DocumentReference documentReference) {
-                                            Log.d("tah", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                            Toast.makeText(UserRegisterActivity.this, "Authentication Success.",
-                                                    Toast.LENGTH_SHORT).show();
-                                            startActivity(new Intent(UserRegisterActivity.this,AuthActivity.class));
-                                        }
-                                    })
-                                            .addOnFailureListener(new OnFailureListener() {
+                                    db.collection("users").document(uid).set(newUser)
+                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                 @Override
-                                                public void onFailure(@NonNull Exception e) {
-                                                    Log.w("la", "Error adding document", e);
+                                                public void onSuccess(Void aVoid) {
+                                                    Toast.makeText(UserRegisterActivity.this, "success", Toast.LENGTH_SHORT).show();
                                                 }
                                             });
 

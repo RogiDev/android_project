@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VaadApp">
-        <activity  android:theme="@style/Theme.VaadApp.NoActionBar" android:name=".Activities.UserRegisterActivity"></activity>
+        <activity android:name=".Activities.PaymentActivity"></activity>
+        <activity
+            android:name=".Activities.UserRegisterActivity"
+            android:theme="@style/Theme.VaadApp.NoActionBar" />
         <activity
             android:name=".Activities.AuthActivity"
             android:theme="@style/Theme.VaadApp.NoActionBar">
@@ -21,7 +24,7 @@
         </activity>
         <activity
             android:name=".Activities.MainActivity"
-            android:theme="@style/Theme.VaadApp.NoActionBar"></activity>
+            android:theme="@style/Theme.VaadApp.NoActionBar" />
     </application>
 
 </manifest>

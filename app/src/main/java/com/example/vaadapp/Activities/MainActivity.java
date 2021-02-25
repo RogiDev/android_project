@@ -10,26 +10,16 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.content.ClipData;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.vaadapp.Fragments.CreateBuilding;
-import com.example.vaadapp.Fragments.LoginFragment;
 import com.example.vaadapp.Fragments.MainFragment;
-import com.example.vaadapp.Fragments.PaymentsFragment;
 import com.example.vaadapp.Models.Building;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,16 +28,11 @@ import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
-import com.google.firebase.firestore.QueryDocumentSnapshot;
-import com.google.firebase.firestore.QuerySnapshot;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CreateBuilding.createBuildingListener{
 
@@ -58,20 +43,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private FirebaseFirestore dbUser = FirebaseFirestore.getInstance();
-    private CollectionReference userDb = dbUser.collection("users");
-
-    private FirebaseFirestore dbManager = FirebaseFirestore.getInstance();
-    private CollectionReference managerDb = dbManager.collection("managers");
-
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference userDb = db.collection("users");
+    private CollectionReference managerDb = db.collection("managers");
     private CollectionReference building = db.collection("building");
-
-
-
     private FirebaseAuth mAuth;
-
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -84,6 +60,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout = findViewById(R.id.drawer);
         navigationView = findViewById(R.id.navigationView);
         navigationView.setNavigationItemSelectedListener(this);
+        DocumentReference docRef2 = managerDb.document(mAuth.getCurrentUser().getUid());
+        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                if (task.isSuccessful()) {
+                    DocumentSnapshot document = task.getResult();
+                    if (document.exists()) {
+                        Menu menu = navigationView.getMenu();
+                        MenuItem target = menu.findItem(R.id.newBuilding);
+                        target.setVisible(true);
+                    } else {
+                        Menu menu = navigationView.getMenu();
+                        MenuItem target = menu.findItem(R.id.newBuilding);
+                        target.setVisible(false);
+                    }
+                } else {
+                    Log.d("TAG", "get failed with ", task.getException());
+                }
+            }
+        });
         actionBarDrawerToggle = new ActionBarDrawerToggle(this, drawerLayout, toolbar, R.string.open, R.string.close);
         actionBarDrawerToggle.getDrawerArrowDrawable().setColor(getColor(R.color.white));
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
@@ -95,50 +91,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
-        MenuItem newBuilding = menu.findItem(R.id.newBuilding);
-        String user = mAuth.getCurrentUser().getUid();
 
 
-
-        DocumentReference docRef = dbUser.collection("users").document(user);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        newBuilding.setVisible(false);
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-
-        DocumentReference docRef2 = dbUser.collection("managers").document(user);
-        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        newBuilding.setVisible(true);
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-        return true;
-    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -150,10 +104,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
         if(item.getItemId() == R.id.payments){
-            fragmentManager = getSupportFragmentManager();
-            fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container,new PaymentsFragment());
-            fragmentTransaction.commit();
+            startActivity(new Intent(this,PaymentActivity.class));
         }
         if(item.getItemId() == R.id.newBuilding){
             fragmentManager = getSupportFragmentManager();
@@ -176,6 +127,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Log.d("succ", "DocumentSnapshot added with ID: " + documentReference.getId());
                         String _id = documentReference.getId();
                         building.document(documentReference.getId()).update("_id",_id);
+                        building.document(documentReference.getId()).update("timestamp", FieldValue.serverTimestamp());
+
+
                         Toast.makeText(MainActivity.this, "Authentication Success.",
                                 Toast.LENGTH_SHORT).show();
                         //startActivity(new Intent(MainActivity.this, MainActivity.class));

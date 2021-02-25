@@ -4,9 +4,16 @@ package com.example.vaadapp.Models;
 
 public class Apartment {
 
-    private int apartmentNumber;;
-    public Apartment(int apartmentNumber){
+    private int apartmentNumber;
+    private String _id;
+    public Apartment(int apartmentNumber, String _id){
+
         this.apartmentNumber=apartmentNumber;
+        this._id = _id;
+    }
+
+    public Apartment(int apartmentNumber) {
+        this.apartmentNumber = apartmentNumber;
     }
 
     public Apartment(){}
@@ -19,6 +26,10 @@ public class Apartment {
         this.apartmentNumber = apartmentNumber;
     }
 
+    @Override
+    public String toString() {
+        return
+                "Apartment Number: " + apartmentNumber;
 
-
+    }
 }
