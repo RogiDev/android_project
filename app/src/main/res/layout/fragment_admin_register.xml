@@ -37,7 +37,7 @@
         app:layout_constraintHorizontal_bias="0.469"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/registerAdminPassInput"
-        app:layout_constraintVertical_bias="0.0" />
+        app:layout_constraintVertical_bias="0.698" />
 
     <EditText
         android:id="@+id/registerAdminPassInput"
@@ -198,6 +198,34 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/lastNameAdminInput"
         app:layout_constraintVertical_bias="0.194" />
+
+    <TextView
+        android:id="@+id/seniorityTextView"
+        android:layout_width="285dp"
+        android:layout_height="20dp"
+        android:layout_marginStart="46dp"
+        android:layout_marginTop="15dp"
+        android:layout_marginEnd="55dp"
+        android:text="Seniority"
+        app:layout_constraintBottom_toTopOf="@+id/seniorityInput"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/registerAdminPassInput" />
+
+    <EditText
+        android:id="@+id/seniorityInput"
+        android:layout_width="320dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="46dp"
+        android:layout_marginEnd="45dp"
+        android:layout_marginBottom="12dp"
+        android:ems="10"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/singUpAdminBtn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/seniorityTextView" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.example.vaadapp.Fragments.MainFragment;
 import com.example.vaadapp.Fragments.Manager.AdminRegisterFragment;
 import com.example.vaadapp.Fragments.LoginFragment;
 import com.example.vaadapp.Models.Building;
+import com.example.vaadapp.Models.Manager;
+import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,6 +34,7 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
     FirebaseAuth mAuth;
     FirebaseFirestore db;
     CollectionReference usersRef;
+
 
 
 
@@ -89,7 +93,42 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
 
 
     @Override
-    public void onSingUpAdminPressed(String email, String password, String firstName, String lastName, String identity) {
+    public void onSingUpAdminPressed(String password, int seniority, String firstName, String lastName, String identity, String email) {
+        mAuth.createUserWithEmailAndPassword(email, password)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            // Sign in success, update UI with the signed-in user's information
+                            Log.d("successed", "createUserWithEmail:success");
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String uid = user.getUid();
+                            // Write a message to the database
+                            Manager newManager = new Manager(seniority, firstName, lastName, uid, email, identity);
+                            db.collection("managers").add(newManager)
+                                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                        @Override
+                                        public void onSuccess(DocumentReference documentReference) {
+                                            Log.d("tah", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                            Toast.makeText(AuthActivity.this, "Authentication Success.",
+                                                    Toast.LENGTH_SHORT).show();
+                                            startActivity(new Intent(AuthActivity.this, AuthActivity.class));
+                                        }
+                                    })
+                                    .addOnFailureListener(new OnFailureListener() {
+                                        @Override
+                                        public void onFailure(@NonNull Exception e) {
+                                            Log.w("la", "Error adding document", e);
+                                        }
+                                    });
 
+                        } else {
+                            // If sign in fails, display a message to the user.
+                            Log.w("Fail", "createUserWithEmail:failure", task.getException());
+                            Toast.makeText(AuthActivity.this, "Authentication failed.",
+                                    Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
     }
 }

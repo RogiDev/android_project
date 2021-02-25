@@ -39,6 +39,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.annotations.NotNull;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -58,14 +59,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     private FragmentManager fragmentManager;
     private FragmentTransaction fragmentTransaction;
-    private FirebaseFirestore dbUser = FirebaseFirestore.getInstance();
-    private CollectionReference userDb = dbUser.collection("users");
-
-    private FirebaseFirestore dbManager = FirebaseFirestore.getInstance();
-    private CollectionReference managerDb = dbManager.collection("managers");
-
-
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
+    private CollectionReference userDb = db.collection("users");
+    private CollectionReference managerDb = db.collection("managers");
     private CollectionReference building = db.collection("building");
 
 
@@ -95,50 +91,44 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         fragmentTransaction.commit();
     }
 
-    public boolean onPrepareOptionsMenu(Menu menu)
-    {
-        MenuItem newBuilding = menu.findItem(R.id.newBuilding);
-        String user = mAuth.getCurrentUser().getUid();
 
 
+//    public boolean onPrepareOptionsMenu(@NotNull Menu menu)
+//    {
+//        String user = mAuth.getCurrentUser().getUid();
+//        DocumentReference docRef = dbUser.collection("users").document(user);
+//        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+//            @Override
+//            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+//                if (task.isSuccessful()) {
+//                    DocumentSnapshot document = task.getResult();
+//                    if (document.exists()) {
+//                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
+//                        Toast.makeText(MainActivity.this, "DocumentSnapshot data",
+//                                Toast.LENGTH_SHORT).show();
+//
+//                    }
+//                    else {
+//                        Log.d("TAG", "No such document");
+//                        Toast.makeText(MainActivity.this, "No such document",
+//                                Toast.LENGTH_SHORT).show();
+//                        menu.findItem(R.id.newBuilding).setEnabled(false);
+//
+//                    }
+//                } else {
+//                    Log.d("TAG", "get failed with ", task.getException());
+//                    Toast.makeText(MainActivity.this, "get failed with ",
+//                            Toast.LENGTH_SHORT).show();
+//                }
+//            }
+//        });
+//        return true;
 
-        DocumentReference docRef = dbUser.collection("users").document(user);
-        docRef.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        newBuilding.setVisible(false);
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-
-        DocumentReference docRef2 = dbUser.collection("managers").document(user);
-        docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if (task.isSuccessful()) {
-                    DocumentSnapshot document = task.getResult();
-                    if (document.exists()) {
-                        Log.d("TAG", "DocumentSnapshot data: " + document.getData());
-                        newBuilding.setVisible(true);
-                    } else {
-                        Log.d("TAG", "No such document");
-                    }
-                } else {
-                    Log.d("TAG", "get failed with ", task.getException());
-                }
-            }
-        });
-        return true;
-    }
+//        menu.findItem(R.id.newBuilding).setEnabled(false);
+//        menu.removeGroup(R.id.group_building);
+//        menu.setGroupVisible(R.id.group_building, false);
+//        return false;
+//    }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -176,6 +166,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                         Log.d("succ", "DocumentSnapshot added with ID: " + documentReference.getId());
                         String _id = documentReference.getId();
                         building.document(documentReference.getId()).update("_id",_id);
+                        managerDb.document(user).update("buildingId", _id);
                         Toast.makeText(MainActivity.this, "Authentication Success.",
                                 Toast.LENGTH_SHORT).show();
                         //startActivity(new Intent(MainActivity.this, MainActivity.class));

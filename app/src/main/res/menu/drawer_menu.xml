@@ -10,9 +10,11 @@
         android:id="@+id/payments"
         android:icon="@drawable/payment_24"
         android:title="Payments" />
+    <group android:id="@+id/group_building"
+        android:checkableBehavior="single">
     <item
         android:id="@+id/newBuilding"
         android:icon="@android:drawable/ic_dialog_dialer"
-        android:title="Create New Building"
-        android:visible="true" />
+        android:title="Create New Building" />
+    </group>
 </menu>

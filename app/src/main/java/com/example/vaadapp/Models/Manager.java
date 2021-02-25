@@ -3,15 +3,15 @@ package com.example.vaadapp.Models;
 public class Manager {
 
     private int seniority;
-    private String firstName, lastName, _id, email,apartmentId,buildingId;
+    private String firstName, lastName, _id, email,apartmentId,buildingId, identity;
 
-
-    public Manager(int seniority, String firstName, String lastName, String _id, String email) {
+    public Manager(int seniority, String firstName, String lastName, String _id, String email, String identity) {
         this.seniority = seniority;
         this.firstName = firstName;
         this.lastName = lastName;
         this._id = _id;
         this.email = email;
+        this.identity=identity;
     }
 
     public Manager(){}
@@ -66,6 +66,14 @@ public class Manager {
 
     public void setSeniority(int seniority) {
         this.seniority = seniority;
+    }
+
+    public String getIdentity() {
+        return identity;
+    }
+
+    public void setIdentity(String identity) {
+        this.identity = identity;
     }
 
 }
