@@ -18,7 +18,7 @@ import com.example.vaadapp.R;
 
 
 public class AdminRegisterFragment extends Fragment {
-    private EditText email,identityNum,firstName,lastName,password;
+    private EditText email,identityNum,firstName,lastName,password, seniorityAdmin;
     private AdminRegisterEvents listener;
 
     Button singUpAdminBtn;
@@ -53,17 +53,19 @@ public class AdminRegisterFragment extends Fragment {
         firstName = view.findViewById(R.id.firstNameAdminInput);
         lastName = view.findViewById(R.id.lastNameAdminInput);
         identityNum = view.findViewById(R.id.identityNumberAdminInput);
+        seniorityAdmin = view.findViewById(R.id.seniorityInput);
         singUpAdminBtn = view.findViewById(R.id.singUpAdminBtn);
         singUpAdminBtn.setBackgroundColor(Color.rgb(52, 52, 52));
         singUpAdminBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onSingUpAdminPressed(email.getText().toString(), password.getText().toString(), firstName.getText().toString(), lastName.getText().toString(), identityNum.getText().toString());
+                listener.onSingUpAdminPressed(password.getText().toString(), Integer.parseInt(seniorityAdmin.getText().toString()), firstName.getText().toString(), lastName.getText().toString(), identityNum.getText().toString(), email.getText().toString());
             }});
         return view;
     }
 
     public interface AdminRegisterEvents{
-        public void onSingUpAdminPressed(String email,String password,String firstName,String lastName,String identity);
+        public void onSingUpAdminPressed(String password, int seniorityAdmin, String firstName, String lastName,String identity, String email);
     }
 }
+
