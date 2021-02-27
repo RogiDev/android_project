@@ -97,7 +97,7 @@ public class ApartmentsActivity extends AppCompatActivity implements CustomRecyc
                     DocumentSnapshot documentSnapshot = task.getResult();
                     if (documentSnapshot.exists() && documentSnapshot.get("buildingId") != null) {
 
-                        db.collection("building").document().collection("apartments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                        db.collection("building").document(documentSnapshot.get("buildingId").toString()).collection("apartments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
                             @Override
                             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
                                 // after getting the data we are calling on success method

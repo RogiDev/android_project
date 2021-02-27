@@ -24,6 +24,7 @@ import com.example.vaadapp.Fragments.CreateBuilding;
 import com.example.vaadapp.Fragments.MainFragment;
 import com.example.vaadapp.Models.Apartment;
 import com.example.vaadapp.Models.Building;
+import com.example.vaadapp.Models.Payments;
 import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -113,23 +114,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
         if(item.getItemId() == R.id.payments){
-            DocumentReference docRef2 = userDb.document(mAuth.getCurrentUser().getUid());
-            docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+
+            managerDb.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if (task.isSuccessful()) {
                         DocumentSnapshot document = task.getResult();
                         if (document.exists()) {
-                            User user = document.toObject(User.class);
-                            Intent intent = new Intent(MainActivity.this,UserPayments.class);
-                            intent.putExtra("apartmentId",user.getApartmentId().toString());
+                            Intent intent = new Intent(MainActivity.this, ApartmentsActivity.class);
                             startActivity(intent);
-                        }else{
-                            startActivity(new Intent(MainActivity.this, ApartmentsActivity.class));
                         }
                     }
                 }
             });
+            userDb.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                                User user = document.toObject(User.class);
+                                Intent intent = new Intent(MainActivity.this,UserPayments.class);
+                                intent.putExtra("apartmentId",user.getApartmentId().toString());
+                                startActivity(intent);
+                        }
+                    }
+                }
+            });
+
 
         }
         if(item.getItemId() == R.id.newBuilding){
