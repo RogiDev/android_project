@@ -120,7 +120,8 @@ public class PaymentsActivity extends AppCompatActivity implements CustomRecycle
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent intent = new Intent(this,ApartmentsActivity.class);
+        startActivity(intent);
     }
 
 

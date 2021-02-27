@@ -209,4 +209,10 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
 
 
     }
+
+    @Override
+    public void onBackPressed() {
+        Intent intent = new Intent(this,AuthActivity.class);
+        startActivity(intent);
+    }
 }

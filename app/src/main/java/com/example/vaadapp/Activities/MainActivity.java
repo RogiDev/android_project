@@ -10,6 +10,8 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
@@ -70,11 +72,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     if (document.exists()) {
                         Menu menu = navigationView.getMenu();
                         MenuItem target = menu.findItem(R.id.newBuilding);
+                        MenuItem cashView = menu.findItem(R.id.casherMenu);
                         target.setVisible(true);
+                        cashView.setVisible(true);
                     } else {
                         Menu menu = navigationView.getMenu();
                         MenuItem target = menu.findItem(R.id.newBuilding);
+                        MenuItem cashView = menu.findItem(R.id.casherMenu);
                         target.setVisible(false);
+                        cashView.setVisible(false);
                     }
                 } else {
                     Log.d("TAG", "get failed with ", task.getException());
@@ -132,6 +138,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.replace(R.id.fragment_container,new CreateBuilding()).addToBackStack(null);;
             fragmentTransaction.commit();
         }
+
+        if(item.getItemId() == R.id.casherMenu){
+            startActivity(new Intent(MainActivity.this, BuilldingCasherActivity.class));
+        }
+
         return true;
     }
 
@@ -153,7 +164,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             db.collection("building").document(_id).collection("apartments").add(apartment1).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                 @Override
                                 public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    documentReference.update("_id",documentReference.getId());
+                                    DocumentReference doc = task.getResult();
+                                    String apartment2 = doc.getId();
+                                    doc.update("_id",apartment2);
+                                    db.collection("managers").document(user).update("apartmentId", apartment2);
                             Toast.makeText(MainActivity.this, "Authentication Success.",
                                     Toast.LENGTH_SHORT).show();
                             //startActivity(new Intent(MainActivity.this, MainActivity.class));
@@ -180,6 +194,19 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        new AlertDialog.Builder(this)
+                .setIcon(android.R.drawable.ic_dialog_alert)
+                .setTitle("Do You want to logout?")
+                .setMessage("Are you sure you want to Logout?")
+                .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                       startActivity(new Intent(MainActivity.this,AuthActivity.class));
+                    }
+
+                })
+                .setNegativeButton("No", null)
+                .show();
     }
 }

@@ -15,4 +15,9 @@
         android:icon="@android:drawable/ic_dialog_dialer"
         android:title="Create New Building"
         android:visible="false" />
+    <item
+        android:id="@+id/casherMenu"
+        android:icon="@android:drawable/ic_dialog_dialer"
+        android:title="Building Cash"
+        android:visible="false" />
 </menu>

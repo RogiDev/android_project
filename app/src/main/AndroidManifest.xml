@@ -9,7 +9,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.VaadApp">
-        <activity android:name=".Activities.UserPayments"  android:theme="@style/Theme.VaadApp.NoActionBar"></activity>
+        <activity android:name=".Activities.BuilldingCasherActivity"  android:theme="@style/Theme.VaadApp.NoActionBar"></activity>
+        <activity
+            android:name=".Activities.UserPayments"
+            android:theme="@style/Theme.VaadApp.NoActionBar" />
         <activity
             android:name=".Activities.NewPaymentActivity"
             android:theme="@style/Theme.VaadApp.NoActionBar" />
