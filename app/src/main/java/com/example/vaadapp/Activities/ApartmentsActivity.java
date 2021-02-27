@@ -46,11 +46,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ApartmentsActivity extends AppCompatActivity implements CustomRecycleAdapter.OnItemClickListener {
-     RecyclerView recyclerView;
+    RecyclerView recyclerView;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-     FirebaseAuth mAuth;
-     ArrayList<Apartment> apartments;
-     CustomRecycleAdapter adapter;
+    FirebaseAuth mAuth;
+    ArrayList<Apartment> apartments;
+    CustomRecycleAdapter adapter;
     String bid;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -62,21 +62,23 @@ public class ApartmentsActivity extends AppCompatActivity implements CustomRecyc
         mAuth = FirebaseAuth.getInstance();
         apartments = new ArrayList<>();
         recyclerView = findViewById(R.id.recyclerView);
-       recyclerView.setHasFixedSize(true);
+        recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
-       adapter = new CustomRecycleAdapter(this,apartments, this);
-       recyclerView.setAdapter(adapter);
+        adapter = new CustomRecycleAdapter(this, apartments, this);
+        recyclerView.setAdapter(adapter);
         recyclerView.addItemDecoration(new DividerItemDecoration(this, DividerItemDecoration.VERTICAL));
-       setUpRecyclerView();
+        setUpRecyclerView();
 
         EditText editText = findViewById(R.id.searchApartmentInput);
         editText.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
             }
+
             @Override
             public void afterTextChanged(Editable s) {
                 filter(s.toString());
@@ -92,51 +94,60 @@ public class ApartmentsActivity extends AppCompatActivity implements CustomRecyc
         db.collection("managers").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                if(task.isSuccessful()){
+                if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    bid = documentSnapshot.get("buildingId").toString();
+                    if( documentSnapshot.get("buildingId") != null){
+                        bid = documentSnapshot.get("buildingId").toString();
+                        if (!bid.isEmpty()) {
+                            db.collection("building").document(bid).collection("apartments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                                @Override
+                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                    // after getting the data we are calling on success method
+                                    // and inside this method we are checking if the received
+                                    // query snapshot is empty or not.
+                                    if (!queryDocumentSnapshots.isEmpty()) {
+                                        // if the snapshot is not empty we are hiding our
+                                        // progress bar and adding our data in a list.
+                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                        apartments.clear();
+                                        for (DocumentSnapshot d : list) {
+                                            // after getting this list we are passing that
+                                            // list to our object class.
+                                            Apartment dataModal = d.toObject(Apartment.class);
 
-                   db.collection("building").document(bid).collection("apartments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                        @Override
-                        public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                            // after getting the data we are calling on success method
-                            // and inside this method we are checking if the received
-                            // query snapshot is empty or not.
-                            if (!queryDocumentSnapshots.isEmpty()) {
-                                // if the snapshot is not empty we are hiding our
-                                // progress bar and adding our data in a list.
-                                List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                    apartments.clear();
-                                for (DocumentSnapshot d : list) {
-                                    // after getting this list we are passing that
-                                    // list to our object class.
-                                    Apartment dataModal = d.toObject(Apartment.class);
-
-                                    // and we will pass this object class
-                                    // inside our arraylist which we have
-                                    // created for recycler view.
-                                    apartments.add(dataModal);
+                                            // and we will pass this object class
+                                            // inside our arraylist which we have
+                                            // created for recycler view.
+                                            apartments.add(dataModal);
+                                        }
+                                        // after adding the data to recycler view.
+                                        // we are calling recycler view notifyDataSetChanged
+                                        // method to notify that data has been changed in recycler view.
+                                        adapter.notifyDataSetChanged();
+                                    } else {
+                                        // if the snapshot is empty we are
+                                        // displaying a toast message.
+                                        Toast.makeText(ApartmentsActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                                    }
                                 }
-                                // after adding the data to recycler view.
-                                // we are calling recycler view notifyDataSetChanged
-                                // method to notify that data has been changed in recycler view.
-                                adapter.notifyDataSetChanged();
-                            } else {
-                                // if the snapshot is empty we are
-                                // displaying a toast message.
-                                Toast.makeText(ApartmentsActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    }).addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            // if we do not get any data or any error we are displaying
-                            // a toast message that we do not get any data
-                            Toast.makeText(ApartmentsActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show();
-                        }
-                    });
+                            }).addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    // if we do not get any data or any error we are displaying
+                                    // a toast message that we do not get any data
+                                    Toast.makeText(ApartmentsActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show();
+                                }
+                            });
 
-                }
+                        }
+                    } else {
+                        Toast.makeText(ApartmentsActivity.this,"Please create a building",Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    }else {
+                    Toast.makeText(ApartmentsActivity.this,"Please create a building to see apartments",Toast.LENGTH_LONG).show();
+                    }
+
             }
         });
 
@@ -154,12 +165,12 @@ public class ApartmentsActivity extends AppCompatActivity implements CustomRecyc
 
     @Override
     public void onItemClick(Object item) {
-        int apartmentIndex  = apartments.indexOf(item);
+        int apartmentIndex = apartments.indexOf(item);
         Apartment apartment = apartments.get(apartmentIndex);
         Intent intent = new Intent(this, PaymentsActivity.class);
-        intent.putExtra("apartment",apartment.toString());
-        intent.putExtra("buildingId",bid);
-        intent.putExtra("apartmentId",apartment.get_id() );
+        intent.putExtra("apartment", apartment.toString());
+        intent.putExtra("buildingId", bid);
+        intent.putExtra("apartmentId", apartment.get_id());
         startActivity(intent);
     }
 
@@ -167,4 +178,4 @@ public class ApartmentsActivity extends AppCompatActivity implements CustomRecyc
     public void onBackPressed() {
         super.onBackPressed();
     }
-    }
+}

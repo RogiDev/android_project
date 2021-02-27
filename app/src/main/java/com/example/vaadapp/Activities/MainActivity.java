@@ -20,6 +20,7 @@ import android.widget.Toast;
 
 import com.example.vaadapp.Fragments.CreateBuilding;
 import com.example.vaadapp.Fragments.MainFragment;
+import com.example.vaadapp.Models.Apartment;
 import com.example.vaadapp.Models.Building;
 import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
@@ -87,7 +88,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         actionBarDrawerToggle.syncState();
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, new MainFragment());
+        fragmentTransaction.replace(R.id.fragment_container, new MainFragment()).addToBackStack(null);;
         fragmentTransaction.commit();
     }
 
@@ -100,7 +101,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(item.getItemId() == R.id.personal_details){
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container,new MainFragment());
+            fragmentTransaction.replace(R.id.fragment_container,new MainFragment()).addToBackStack(null);;
             fragmentTransaction.commit();
         }
         if(item.getItemId() == R.id.payments){
@@ -128,13 +129,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         if(item.getItemId() == R.id.newBuilding){
             fragmentManager = getSupportFragmentManager();
             fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.replace(R.id.fragment_container,new CreateBuilding());
+            fragmentTransaction.replace(R.id.fragment_container,new CreateBuilding()).addToBackStack(null);;
             fragmentTransaction.commit();
         }
         return true;
     }
 
-    public void onCreateNewBuildingPressed(int numBuilding, int apartment, String street, String entrance) {
+    public void onCreateNewBuildingPressed(int numBuilding, int apartment, String street, String entrance, int myApartment) {
         try {
             String user = mAuth.getCurrentUser().getUid();
 
@@ -148,14 +149,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             String _id = documentReference.getId();
                             building.document(documentReference.getId()).update("_id", _id);
                             db.collection("managers").document(user).update("buildingId", _id);
+                            Apartment apartment1 = new Apartment(myApartment);
+                            db.collection("building").document(_id).collection("apartments").add(apartment1).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    documentReference.update("_id",documentReference.getId());
                             Toast.makeText(MainActivity.this, "Authentication Success.",
                                     Toast.LENGTH_SHORT).show();
                             //startActivity(new Intent(MainActivity.this, MainActivity.class));
-
-
                             fragmentManager = getSupportFragmentManager();
                             fragmentTransaction = fragmentManager.beginTransaction();
-                            fragmentTransaction.replace(R.id.fragment_container, new MainFragment()).commit();
+                            fragmentTransaction.replace(R.id.fragment_container, new MainFragment())
+                                    .addToBackStack(null).commit();
+
+                                }
+                            });
                         }
                     })
                     .addOnFailureListener(new OnFailureListener() {

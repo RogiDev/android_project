@@ -76,4 +76,12 @@ public class Manager {
         this.identity = identity;
     }
 
+    @Override
+    public String toString() {
+               return "First Name: " + firstName + '\n' +
+                       "Last Name: " + lastName + '\n' +
+                        "Seniority: " + seniority + '\n' +
+                "Email: " + email + '\n' +
+                "Identity: " + identity;
+    }
 }

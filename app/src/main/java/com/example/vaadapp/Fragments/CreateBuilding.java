@@ -1,6 +1,7 @@
 package com.example.vaadapp.Fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,12 +31,10 @@ import java.util.Map;
 public class CreateBuilding extends Fragment {
 
     Button btnSaveBuilding;
-    EditText numBuilding, numMaxApartment, street, entrance;
-    TextView thisUser;
+    EditText numBuilding, numMaxApartment, street, entrance,myApartment;
     private createBuildingListener listener;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference building = db.collection("building");
-    private FirebaseAuth mAuth;
 
 
 
@@ -69,12 +68,13 @@ public class CreateBuilding extends Fragment {
         numMaxApartment = view.findViewById(R.id.MAXapartmentNumber);
         street = view.findViewById(R.id.address);
         entrance = view.findViewById(R.id.enetery);
-
+        myApartment = view.findViewById(R.id.myApartmentInput);
+        btnSaveBuilding.setBackgroundColor(Color.rgb(50,50,50));
         btnSaveBuilding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 try {
-                listener.onCreateNewBuildingPressed(Integer.parseInt(numBuilding.getText().toString()), Integer.parseInt(numMaxApartment.getText().toString()), street.getText().toString(), entrance.getText().toString());
+                listener.onCreateNewBuildingPressed(Integer.parseInt(numBuilding.getText().toString()), Integer.parseInt(numMaxApartment.getText().toString()), street.getText().toString(), entrance.getText().toString(),Integer.parseInt(myApartment.getText().toString()));
                 }
                 catch (Exception e){
                     Toast.makeText(getContext(),"Something went wrong please try agian",Toast.LENGTH_LONG).show();
@@ -87,7 +87,7 @@ public class CreateBuilding extends Fragment {
 
     public interface createBuildingListener{
 
-        public void onCreateNewBuildingPressed(int numBuilding, int apartment, String street, String entrance);
+        public void onCreateNewBuildingPressed(int numBuilding, int apartment, String street, String entrance,int myApartment);
     }
 
 

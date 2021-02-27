@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.vaadapp.Activities.AuthActivity;
 import com.example.vaadapp.R;
@@ -67,7 +68,12 @@ public class LoginFragment extends Fragment {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
+
                 listener.onLoginPressed(loginEmailInput.getText().toString(),loginPasswordInput.getText().toString());
+                }catch (Exception e){
+                    Toast.makeText(getContext(),"The field can't be empty!",Toast.LENGTH_LONG).show();
+                }
             }
         });
         btnAdminRegister.setOnClickListener(new View.OnClickListener() {

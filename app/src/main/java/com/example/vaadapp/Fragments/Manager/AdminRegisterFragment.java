@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.example.vaadapp.R;
 
@@ -59,7 +60,12 @@ public class AdminRegisterFragment extends Fragment {
         singUpAdminBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
                 listener.onSingUpAdminPressed(password.getText().toString(), Integer.parseInt(seniorityAdmin.getText().toString()), firstName.getText().toString(), lastName.getText().toString(), identityNum.getText().toString(), email.getText().toString());
+
+                }catch (Exception e){
+                    Toast.makeText(getContext(),"the fields cannot be empty",Toast.LENGTH_LONG).show();
+                }
             }});
         return view;
     }

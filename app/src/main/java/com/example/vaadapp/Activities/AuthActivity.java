@@ -27,7 +27,7 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
-
+// authentication activity
 public class AuthActivity extends AppCompatActivity implements LoginFragment.onLoginFragmentBtnSelected ,AdminRegisterFragment.AdminRegisterEvents {
     FragmentManager fragmentManager;
     FragmentTransaction fragmentTransaction;
@@ -51,6 +51,7 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
         fragmentTransaction.commit();
     }
 
+    // login press in fragment
     @Override
     public void onLoginPressed(String email, String password) {
         mAuth.signInWithEmailAndPassword(email, password)
@@ -81,19 +82,16 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
 
     @Override
     public void onRegisterAdminPressed() {
-        AdminRegisterFragment fragment = new AdminRegisterFragment();
-        if (fragment != null) {
-
-        }
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.auth_container, fragment);
+        fragmentTransaction.replace(R.id.auth_container, new AdminRegisterFragment()).addToBackStack(null);
         fragmentTransaction.commit();
     }
 
 
     @Override
     public void onSingUpAdminPressed(String password, int seniority, String firstName, String lastName, String identity, String email) {
+        // create a manager
         mAuth.createUserWithEmailAndPassword(email, password)
                 .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                     @Override
@@ -108,6 +106,7 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
                             db.collection("managers").document(uid).set(newManager)
                                     .addOnSuccessListener(new OnSuccessListener<Void>() {
                                         @Override
+                                        // if succes move to login ( new Auth activity hold the login frament first by defualt)
                                         public void onSuccess(Void aVoid) {
                                             Toast.makeText(AuthActivity.this, "success", Toast.LENGTH_SHORT).show();
                                             startActivity(new Intent(AuthActivity.this, AuthActivity.class));

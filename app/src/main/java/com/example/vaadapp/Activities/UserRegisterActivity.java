@@ -22,6 +22,8 @@ import android.widget.Toast;
 import com.example.vaadapp.Helpers.CustomSpinnerAdapter;
 import com.example.vaadapp.Models.Apartment;
 import com.example.vaadapp.Models.Building;
+import com.example.vaadapp.Models.Manager;
+import com.example.vaadapp.Models.Payments;
 import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -56,16 +58,13 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
     EditText email, password, firstName, lastName, identityNum;
     Spinner buildingSpinner, apartmnetSpinner;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
-    ;
     CollectionReference builingsRef = db.collection("building");
-    ;
     ArrayList<Building> buildings = new ArrayList<>();
-    ;
     CustomSpinnerAdapter buildingSpinnerAdapter, apartmentSpinnerAdapter;
     int choosenApartment;
-    String choosenBuildingId;
+    String chosenBuildingId;
     ArrayList<Integer> apartments = new ArrayList<>();
-     FirebaseAuth mAuth;
+    private FirebaseAuth mAuth;
 
 
     @Override
@@ -110,7 +109,7 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        CollectionReference apartment = builingsRef.document(buildings.get(position).get_id()).collection("apartments");
         if (parent.getAdapter().equals(buildingSpinnerAdapter)) {
-            choosenBuildingId = buildings.get(position).get_id();
+            chosenBuildingId = buildings.get(position).get_id();
             apartments.clear();
             for (int i = 1; i <= buildings.get(position).getMaxApartments(); i++) {
                 apartments.add(i);
@@ -134,56 +133,80 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
     }
 
     @Override
-    public void onBackPressed() {
-        super.onBackPressed();
-    }
-
-    @Override
     public void onClick(View v) {
         // check if apartment is exist
         Query query = db.collection("building")
-                .document(choosenBuildingId).collection("apartments")
+                .document(chosenBuildingId).collection("apartments")
                 .whereEqualTo("apartmentNumber", choosenApartment);
         query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<QuerySnapshot> task) {
-                if (task.isSuccessful()) {
-                    for (QueryDocumentSnapshot document : task.getResult()) {
-                        if (document.exists()) {
-                            Toast.makeText(UserRegisterActivity.this, "Sorry The Apartment is already registered", Toast.LENGTH_LONG).show();
-                        } else {
-                            FirebaseUser user = mAuth.getCurrentUser();
-                            String uid = user.getUid();
-                            Apartment apartmentToSave = new Apartment(choosenApartment);
-                            db.collection("building")
-                                    .document(choosenBuildingId).collection("apartments").add(apartmentToSave).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
-                                @Override
-                                public void onComplete(@NonNull Task<DocumentReference> task) {
-                                    if (task.isSuccessful()) {
-                                        DocumentReference documentReference = task.getResult();
-                                        String apartId = documentReference.getId();
-                                        documentReference.update("_id", apartId);
-                                        // Write a message to the database.0
-                                        User newUser = new User(firstName.getText().toString(), lastName.getText().toString(),
-                                                uid, email.getText().toString(), apartId, choosenBuildingId);
-                                        db.collection("users").document(uid).set(newUser)
-                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                    @Override
-                                                    public void onSuccess(Void aVoid) {
-                                                        startActivity(new Intent(UserRegisterActivity.this, AuthActivity.class));
-                                                        Toast.makeText(UserRegisterActivity.this, "success", Toast.LENGTH_SHORT).show();
+                                              @Override
+                                              public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                                                  if(task.isSuccessful()){
+                                                  for (QueryDocumentSnapshot document : task.getResult()) {
+                                                    if (document.exists()){
+                                                        Toast.makeText(UserRegisterActivity.this,"Apartment already exist",Toast.LENGTH_LONG).show();
+                                                        return;
                                                     }
-                                                });
-                                    }
-                                }
-                            });
-                        }
-                    }
+                                                  }
+                                                      Apartment apartmentToSave = new Apartment(choosenApartment);
+                                                      db.collection("building").document(chosenBuildingId).collection("apartments")
+                                                              .add(apartmentToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                          @Override
+                                                          public void onSuccess(DocumentReference documentReference) {
+                                                              mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
+                                                                      .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
+                                                                          @Override
+                                                                          public void onComplete(@NonNull Task<AuthResult> task) {
+                                                                              if (task.isSuccessful()) {
+                                                                                  // Sign in success, update UI with the signed-in user's information
+                                                                                  Log.d("successed", "createUserWithEmail:success");
+                                                                                  FirebaseUser user = mAuth.getCurrentUser();
+                                                                                  String uid = user.getUid();
+                                                                                  Log.d("added new apartment", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                                                  String apartId = documentReference.getId();
+                                                                                  documentReference.update("_id",apartId);
+                                                                                  // Write a message to the database
+                                                                                  User newUser = new User(firstName.getText().toString(),lastName.getText().toString(),
+                                                                                          uid,email.getText().toString(),apartId,chosenBuildingId);
+                                                                                  db.collection("users").add(newUser)
+                                                                                          .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                                              @Override
+                                                                                              public void onSuccess(DocumentReference documentReference) {
+                                                                                                  Log.d("tah", "DocumentSnapshot added with ID: " + documentReference.getId());
+                                                                                                  Toast.makeText(UserRegisterActivity.this, "Authentication Success.",
+                                                                                                          Toast.LENGTH_SHORT).show();
+                                                                                                  startActivity(new Intent(UserRegisterActivity.this,AuthActivity.class));
+                                                                                              }
+                                                                                          })
+                                                                                          .addOnFailureListener(new OnFailureListener() {
+                                                                                              @Override
+                                                                                              public void onFailure(@NonNull Exception e) {
+                                                                                                  Log.w("la", "Error adding document", e);
+                                                                                              }
+                                                                                          });
 
-                } else {
-                    Log.d("llsl", "Error getting documents: ", task.getException());
-                }
-            }
-        });
+                                                                              } else {
+                                                                                  // If sign in fails, display a message to the user.
+                                                                                  Log.w("Failer", "createUserWithEmail:failure", task.getException());
+                                                                                  Toast.makeText(UserRegisterActivity.this, "Authentication failed.",
+                                                                                          Toast.LENGTH_SHORT).show();
+                                                                              }
+                                                                          }
+                                                                      });
+                                                          }})
+                                                              .addOnFailureListener(new OnFailureListener() {
+                                                                  @Override
+                                                                  public void onFailure(@NonNull Exception e) {
+                                                                      Log.w("Error", "Error adding document", e);
+                                                                  }
+                                                              });
+
+                                                  }
+
+                                              }
+                                          });
+//            @Override
+
+
     }
 }
