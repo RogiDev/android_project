@@ -28,6 +28,7 @@ import com.example.vaadapp.Fragments.CreateBuilding;
 import com.example.vaadapp.Fragments.MainFragment;
 import com.example.vaadapp.Helpers.CustomRecycleAdapter;
 import com.example.vaadapp.Models.Apartment;
+import com.example.vaadapp.Models.Manager;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -88,95 +89,88 @@ public class ApartmentsActivity extends AppCompatActivity implements CustomRecyc
     }
 
     private void setUpRecyclerView() {
-        FirebaseUser user = mAuth.getCurrentUser();
-        String uid = user.getUid();
 
-        db.collection("managers").document(uid).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+        db.collection("managers").document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if (task.isSuccessful()) {
                     DocumentSnapshot documentSnapshot = task.getResult();
-                    if( documentSnapshot.get("buildingId") != null){
-                        bid = documentSnapshot.get("buildingId").toString();
-                        if (!bid.isEmpty()) {
-                            db.collection("building").document(bid).collection("apartments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
-                                @Override
-                                public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                                    // after getting the data we are calling on success method
-                                    // and inside this method we are checking if the received
-                                    // query snapshot is empty or not.
-                                    if (!queryDocumentSnapshots.isEmpty()) {
-                                        // if the snapshot is not empty we are hiding our
-                                        // progress bar and adding our data in a list.
-                                        List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
-                                        apartments.clear();
-                                        for (DocumentSnapshot d : list) {
-                                            // after getting this list we are passing that
-                                            // list to our object class.
-                                            Apartment dataModal = d.toObject(Apartment.class);
+                    if (documentSnapshot.exists() && documentSnapshot.get("buildingId") != null) {
 
-                                            // and we will pass this object class
-                                            // inside our arraylist which we have
-                                            // created for recycler view.
-                                            apartments.add(dataModal);
-                                        }
-                                        // after adding the data to recycler view.
-                                        // we are calling recycler view notifyDataSetChanged
-                                        // method to notify that data has been changed in recycler view.
-                                        adapter.notifyDataSetChanged();
-                                    } else {
-                                        // if the snapshot is empty we are
-                                        // displaying a toast message.
-                                        Toast.makeText(ApartmentsActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
+                        db.collection("building").document().collection("apartments").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+                            @Override
+                            public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
+                                // after getting the data we are calling on success method
+                                // and inside this method we are checking if the received
+                                // query snapshot is empty or not.
+                                if (!queryDocumentSnapshots.isEmpty()) {
+                                    // if the snapshot is not empty we are hiding our
+                                    // progress bar and adding our data in a list.
+                                    List<DocumentSnapshot> list = queryDocumentSnapshots.getDocuments();
+                                    apartments.clear();
+                                    for (DocumentSnapshot d : list) {
+                                        // after getting this list we are passing that
+                                        // list to our object class.
+                                        Apartment dataModal = d.toObject(Apartment.class);
+
+                                        // and we will pass this object class
+                                        // inside our arraylist which we have
+                                        // created for recycler view.
+                                        apartments.add(dataModal);
                                     }
+                                    // after adding the data to recycler view.
+                                    // we are calling recycler view notifyDataSetChanged
+                                    // method to notify that data has been changed in recycler view.
+                                    adapter.notifyDataSetChanged();
+                                } else {
+                                    // if the snapshot is empty we are
+                                    // displaying a toast message.
+                                    Toast.makeText(ApartmentsActivity.this, "No data found in Database", Toast.LENGTH_SHORT).show();
                                 }
-                            }).addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    // if we do not get any data or any error we are displaying
-                                    // a toast message that we do not get any data
-                                    Toast.makeText(ApartmentsActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show();
-                                }
-                            });
-
-                        }
-                    } else {
-                        Toast.makeText(ApartmentsActivity.this,"Please create a building",Toast.LENGTH_LONG).show();
-                        return;
-                    }
-                    }else {
-                    Toast.makeText(ApartmentsActivity.this,"Please create a building to see apartments",Toast.LENGTH_LONG).show();
+                            }
+                        }).addOnFailureListener(new OnFailureListener() {
+                            @Override
+                            public void onFailure(@NonNull Exception e) {
+                                // if we do not get any data or any error we are displaying
+                                // a toast message that we do not get any data
+                                Toast.makeText(ApartmentsActivity.this, "Fail to get the data.", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }else{
+                        Toast.makeText(ApartmentsActivity.this, "Please create a building to see apartments", Toast.LENGTH_LONG).show();
                     }
 
+                } else {
+                    Toast.makeText(ApartmentsActivity.this, "Please create a building to see apartments", Toast.LENGTH_LONG).show();
+                }
             }
         });
-
     }
 
-    private void filter(String text) {
-        ArrayList<Apartment> filteredList = new ArrayList<>();
-        for (Apartment item : apartments) {
-            if (item.toString().toLowerCase().contains(text.toLowerCase())) {
-                filteredList.add(item);
+        private void filter (String text){
+            ArrayList<Apartment> filteredList = new ArrayList<>();
+            for (Apartment item : apartments) {
+                if (item.toString().toLowerCase().contains(text.toLowerCase())) {
+                    filteredList.add(item);
+                }
             }
+            adapter.filterList(filteredList);
         }
-        adapter.filterList(filteredList);
-    }
 
-    @Override
-    public void onItemClick(Object item) {
-        int apartmentIndex = apartments.indexOf(item);
-        Apartment apartment = apartments.get(apartmentIndex);
-        Intent intent = new Intent(this, PaymentsActivity.class);
-        intent.putExtra("apartment", apartment.toString());
-        intent.putExtra("buildingId", bid);
-        intent.putExtra("apartmentId", apartment.get_id());
-        startActivity(intent);
-    }
+        @Override
+        public void onItemClick (Object item){
+            int apartmentIndex = apartments.indexOf(item);
+            Apartment apartment = apartments.get(apartmentIndex);
+            Intent intent = new Intent(this, PaymentsActivity.class);
+            intent.putExtra("apartment", apartment.toString());
+            intent.putExtra("buildingId", bid);
+            intent.putExtra("apartmentId", apartment.get_id());
+            startActivity(intent);
+        }
 
-    @Override
-    public void onBackPressed() {
-        Intent intent = new Intent(this, MainActivity.class);
-        startActivity(intent);
+        @Override
+        public void onBackPressed () {
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
+        }
     }
-}

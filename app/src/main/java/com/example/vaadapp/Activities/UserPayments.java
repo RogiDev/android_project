@@ -102,7 +102,9 @@ public class UserPayments extends AppCompatActivity implements CustomRecycleAdap
     }
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+
+        startActivity(new Intent(this,MainActivity.class));
+
     }
 
 

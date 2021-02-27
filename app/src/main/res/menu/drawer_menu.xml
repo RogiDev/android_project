@@ -5,7 +5,7 @@
     <item
         android:id="@+id/personal_details"
         android:icon="@drawable/account_box_24"
-        android:title="Profile" />
+        android:title="Home Page" />
     <item
         android:id="@+id/payments"
         android:icon="@drawable/payment_24"

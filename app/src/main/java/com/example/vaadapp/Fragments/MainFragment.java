@@ -21,6 +21,8 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QueryDocumentSnapshot;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import org.w3c.dom.Text;
 
@@ -29,7 +31,6 @@ public class MainFragment extends Fragment {
     TextView userText,apartmentText;
     FirebaseFirestore db = FirebaseFirestore.getInstance();
     CollectionReference userDb = db.collection("users");
-    String user;
     public MainFragment() {
         // Required empty public constructor
     }
@@ -39,42 +40,7 @@ public class MainFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_main, container, false);
         userText = view.findViewById(R.id.userText);
-        apartmentText = view.findViewById(R.id.userApartmentText);
-        mAuth = FirebaseAuth.getInstance();
-        db.collection("users").document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                DocumentSnapshot document = task.getResult();
-                if(task.isSuccessful() && document.exists()){
-                    user = document.toObject(User.class).toString();
-                    userText.setText(user.toString());
-                    String buidldingId = document.toObject(User.class).getBuildingId();
-                    String apartmentId = document.toObject(User.class).getApartmentId();
-                    db.collection("building").document(buidldingId).collection("apartments").document(apartmentId).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot apartDoc = task.getResult();
-                            if(apartDoc.exists()){
-                                Apartment apartment = apartDoc.toObject(Apartment.class);
-                                apartmentText.setText(apartment.toString());
-                            }
-                        }
-                    });
-                }else{
-                    db.collection("managers").document(mAuth.getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
-                        @Override
-                        public void onComplete(@NonNull Task<DocumentSnapshot> task) {
-                            DocumentSnapshot managerDoc = task.getResult();
-                            if(managerDoc.exists() && task.isSuccessful()){
-                            user = managerDoc.toObject(Manager.class).toString();
-                            userText.setText(user.toString());
-                            apartmentText.setText("Role: Manager");
-                            }
-                        }
-                    });
-                }
-            }
-        });
+        userText.setText("Wellcome to Vaad App");
         return view;
     }
 }

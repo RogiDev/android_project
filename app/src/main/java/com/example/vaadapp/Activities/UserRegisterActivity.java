@@ -38,6 +38,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.Query;
@@ -129,6 +130,14 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
 
     @Override
     public void onNothingSelected(AdapterView<?> parent) {
+        if (parent.getAdapter().equals(buildingSpinnerAdapter)) {
+            buildings.get(0);
+            buildingSpinnerAdapter.notifyDataSetChanged();
+        }
+        if (parent.getAdapter().equals(apartmentSpinnerAdapter)) {
+            apartments.get(0);
+            apartmentSpinnerAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -168,10 +177,10 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
                                                                                   // Write a message to the database
                                                                                   User newUser = new User(firstName.getText().toString(),lastName.getText().toString(),
                                                                                           uid,email.getText().toString(),apartId,chosenBuildingId);
-                                                                                  db.collection("users").add(newUser)
-                                                                                          .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                                                                                  db.collection("users").document(uid).set(newUser)
+                                                                                          .addOnSuccessListener(new OnSuccessListener<Void>() {
                                                                                               @Override
-                                                                                              public void onSuccess(DocumentReference documentReference) {
+                                                                                              public void onSuccess(Void aVoid) {
                                                                                                   Log.d("tah", "DocumentSnapshot added with ID: " + documentReference.getId());
                                                                                                   Toast.makeText(UserRegisterActivity.this, "Authentication Success.",
                                                                                                           Toast.LENGTH_SHORT).show();

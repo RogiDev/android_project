@@ -18,6 +18,14 @@ public class User {
     }
     public User(){}
 
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
+    }
+
     public String getFirstName() {
         return firstName;
     }
@@ -56,5 +64,12 @@ public class User {
 
     public void setBuildingId(String buildingId) {
         this.buildingId = buildingId;
+    }
+
+    @Override
+    public String toString() {
+        return "First Name: " + firstName + '\n' +
+                "Last Name:'" + lastName + '\n' +
+                "Email:'" + email;
     }
 }

@@ -37,6 +37,8 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
+import java.util.Objects;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CreateBuilding.createBuildingListener{
 
     DrawerLayout drawerLayout;
@@ -122,11 +124,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Intent intent = new Intent(MainActivity.this,UserPayments.class);
                             intent.putExtra("apartmentId",user.getApartmentId().toString());
                             startActivity(intent);
-                        } else {
+                        }else{
                             startActivity(new Intent(MainActivity.this, ApartmentsActivity.class));
                         }
-                    } else {
-                        Log.d("TAG", "get failed with ", task.getException());
                     }
                 }
             });
@@ -148,9 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void onCreateNewBuildingPressed(int numBuilding, int apartment, String street, String entrance, int myApartment) {
         try {
-            String user = mAuth.getCurrentUser().getUid();
-
-            Building buildingNew = new Building(numBuilding, user, apartment, entrance, street);
+            Building buildingNew = new Building(numBuilding, mAuth.getCurrentUser().getUid(), apartment, entrance, street);
 
             building.add(buildingNew)
                     .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
@@ -159,7 +157,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                             Log.d("succ", "DocumentSnapshot added with ID: " + documentReference.getId());
                             String _id = documentReference.getId();
                             building.document(documentReference.getId()).update("_id", _id);
-                            db.collection("managers").document(user).update("buildingId", _id);
+                            db.collection("managers").document(mAuth.getCurrentUser().getUid()).update("buildingId", _id);
                             Apartment apartment1 = new Apartment(myApartment);
                             db.collection("building").document(_id).collection("apartments").add(apartment1).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
                                 @Override
@@ -167,7 +165,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                                     DocumentReference doc = task.getResult();
                                     String apartment2 = doc.getId();
                                     doc.update("_id",apartment2);
-                                    db.collection("managers").document(user).update("apartmentId", apartment2);
+                                    db.collection("managers").document(mAuth.getCurrentUser().getUid()).update("apartmentId", apartment2);
                             Toast.makeText(MainActivity.this, "Authentication Success.",
                                     Toast.LENGTH_SHORT).show();
                             //startActivity(new Intent(MainActivity.this, MainActivity.class));
