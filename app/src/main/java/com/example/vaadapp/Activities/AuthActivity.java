@@ -122,4 +122,8 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
                     }
                 });
     }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
 }

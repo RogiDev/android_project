@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -31,7 +32,7 @@ public class CreateBuilding extends Fragment {
     Button btnSaveBuilding;
     EditText numBuilding, numMaxApartment, street, entrance;
     TextView thisUser;
-    private CreateBuilding.createBuildingListener listener;
+    private createBuildingListener listener;
     private FirebaseFirestore db = FirebaseFirestore.getInstance();
     private CollectionReference building = db.collection("building");
     private FirebaseAuth mAuth;
@@ -72,7 +73,12 @@ public class CreateBuilding extends Fragment {
         btnSaveBuilding.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                try {
                 listener.onCreateNewBuildingPressed(Integer.parseInt(numBuilding.getText().toString()), Integer.parseInt(numMaxApartment.getText().toString()), street.getText().toString(), entrance.getText().toString());
+                }
+                catch (Exception e){
+                    Toast.makeText(getContext(),"Something went wrong please try agian",Toast.LENGTH_LONG).show();
+                }
             }
         });
 

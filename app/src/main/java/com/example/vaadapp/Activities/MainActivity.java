@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.vaadapp.Fragments.CreateBuilding;
 import com.example.vaadapp.Fragments.MainFragment;
 import com.example.vaadapp.Models.Building;
+import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
@@ -31,7 +32,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
-import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CreateBuilding.createBuildingListener{
@@ -41,13 +41,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     Toolbar toolbar;
     NavigationView navigationView;
 
-    private FragmentManager fragmentManager;
-    private FragmentTransaction fragmentTransaction;
-    private FirebaseFirestore db = FirebaseFirestore.getInstance();
-    private CollectionReference userDb = db.collection("users");
-    private CollectionReference managerDb = db.collection("managers");
-    private CollectionReference building = db.collection("building");
-    private FirebaseAuth mAuth;
+     FragmentManager fragmentManager;
+     FragmentTransaction fragmentTransaction;
+     FirebaseFirestore db = FirebaseFirestore.getInstance();
+     CollectionReference userDb = db.collection("users");
+     CollectionReference managerDb = db.collection("managers");
+     CollectionReference building = db.collection("building");
+     FirebaseAuth mAuth;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -104,7 +104,26 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             fragmentTransaction.commit();
         }
         if(item.getItemId() == R.id.payments){
-            startActivity(new Intent(this,PaymentActivity.class));
+            DocumentReference docRef2 = userDb.document(mAuth.getCurrentUser().getUid());
+            docRef2.get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            User user = document.toObject(User.class);
+                            Intent intent = new Intent(MainActivity.this,UserPayments.class);
+                            intent.putExtra("apartmentId",user.getApartmentId().toString());
+                            startActivity(intent);
+                        } else {
+                            startActivity(new Intent(MainActivity.this, ApartmentsActivity.class));
+                        }
+                    } else {
+                        Log.d("TAG", "get failed with ", task.getException());
+                    }
+                }
+            });
+
         }
         if(item.getItemId() == R.id.newBuilding){
             fragmentManager = getSupportFragmentManager();
@@ -116,35 +135,43 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void onCreateNewBuildingPressed(int numBuilding, int apartment, String street, String entrance) {
-        String user = mAuth.getCurrentUser().getUid();
+        try {
+            String user = mAuth.getCurrentUser().getUid();
 
-        Building buildingNew = new Building(numBuilding, user, apartment, entrance, street);
+            Building buildingNew = new Building(numBuilding, user, apartment, entrance, street);
 
-        building.add(buildingNew)
-                .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
-                    @Override
-                    public void onSuccess(DocumentReference documentReference) {
-                        Log.d("succ", "DocumentSnapshot added with ID: " + documentReference.getId());
-                        String _id = documentReference.getId();
-                        building.document(documentReference.getId()).update("_id",_id);
-                        building.document(documentReference.getId()).update("timestamp", FieldValue.serverTimestamp());
-
-
-                        Toast.makeText(MainActivity.this, "Authentication Success.",
-                                Toast.LENGTH_SHORT).show();
-                        //startActivity(new Intent(MainActivity.this, MainActivity.class));
+            building.add(buildingNew)
+                    .addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                        @Override
+                        public void onSuccess(DocumentReference documentReference) {
+                            Log.d("succ", "DocumentSnapshot added with ID: " + documentReference.getId());
+                            String _id = documentReference.getId();
+                            building.document(documentReference.getId()).update("_id", _id);
+                            db.collection("managers").document(user).update("buildingId", _id);
+                            Toast.makeText(MainActivity.this, "Authentication Success.",
+                                    Toast.LENGTH_SHORT).show();
+                            //startActivity(new Intent(MainActivity.this, MainActivity.class));
 
 
-                        fragmentManager = getSupportFragmentManager();
-                        fragmentTransaction = fragmentManager.beginTransaction();
-                        fragmentTransaction.replace(R.id.fragment_container, new MainFragment()).commit();
-                    }
-                })
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("fail", "Error adding document", e);
-                    }
-                });
+                            fragmentManager = getSupportFragmentManager();
+                            fragmentTransaction = fragmentManager.beginTransaction();
+                            fragmentTransaction.replace(R.id.fragment_container, new MainFragment()).commit();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            Log.w("fail", "Error adding document", e);
+                        }
+                    });
+        }
+        catch (Exception e){
+            Toast.makeText(this,"Something went wrong, please try agian",Toast.LENGTH_LONG).show();
+        }
+
+    }
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
     }
 }

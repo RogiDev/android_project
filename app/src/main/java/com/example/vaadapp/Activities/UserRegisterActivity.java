@@ -28,6 +28,7 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -37,6 +38,7 @@ import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FieldValue;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
 
@@ -51,18 +53,19 @@ import java.util.stream.IntStream;
 public class UserRegisterActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     Button singUpBtn;
-    EditText email,password,firstName,lastName,identityNum;
-    Spinner buildingSpinner,apartmnetSpinner;
-    FirebaseFirestore db = FirebaseFirestore.getInstance();;
-    CollectionReference builingsRef = db.collection("building");;
-    ArrayList<Building> buildings =  new ArrayList<>();;
-    CustomSpinnerAdapter buildingSpinnerAdapter,apartmentSpinnerAdapter;
+    EditText email, password, firstName, lastName, identityNum;
+    Spinner buildingSpinner, apartmnetSpinner;
+    FirebaseFirestore db = FirebaseFirestore.getInstance();
+    ;
+    CollectionReference builingsRef = db.collection("building");
+    ;
+    ArrayList<Building> buildings = new ArrayList<>();
+    ;
+    CustomSpinnerAdapter buildingSpinnerAdapter, apartmentSpinnerAdapter;
     int choosenApartment;
     String choosenBuildingId;
     ArrayList<Integer> apartments = new ArrayList<>();
-    private FirebaseAuth mAuth;
-
-
+     FirebaseAuth mAuth;
 
 
     @Override
@@ -75,30 +78,30 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
             public void onComplete(@NonNull Task<QuerySnapshot> task) {
                 if (task.isSuccessful()) {
                     for (QueryDocumentSnapshot document : task.getResult()) {
-                        if(document.exists()){
-                        Building building = document.toObject(Building.class);
-                        Log.d("items", "onComplete: "+ building.toString());
-                        buildings.add(building);
+                        if (document.exists()) {
+                            Building building = document.toObject(Building.class);
+                            Log.d("items", "onComplete: " + building.toString());
+                            buildings.add(building);
                         }
                     }
-                 buildingSpinnerAdapter.notifyDataSetChanged();
+                    buildingSpinnerAdapter.notifyDataSetChanged();
                 }
             }
         });
-        email =  findViewById(R.id.registerEmailInput);
-        password =  findViewById(R.id.registerPassInput);
-        firstName =  findViewById(R.id.firstNameInput);
-        lastName =  findViewById(R.id.lastNameInput);
-        identityNum =  findViewById(R.id.identityNumberInput);
-        singUpBtn =  findViewById(R.id.singUpBtn);
+        email = findViewById(R.id.registerEmailInput);
+        password = findViewById(R.id.registerPassInput);
+        firstName = findViewById(R.id.firstNameInput);
+        lastName = findViewById(R.id.lastNameInput);
+        identityNum = findViewById(R.id.identityNumberInput);
+        singUpBtn = findViewById(R.id.singUpBtn);
         singUpBtn.setBackgroundColor(Color.rgb(52, 52, 52));
         buildingSpinner = findViewById(R.id.myCustomSpinner);
         buildingSpinner.setOnItemSelectedListener(this);
-        buildingSpinnerAdapter = new CustomSpinnerAdapter<>(this,R.layout.custom_spinner_view,buildings);
+        buildingSpinnerAdapter = new CustomSpinnerAdapter<>(this, R.layout.custom_spinner_view, buildings);
         buildingSpinner.setAdapter(buildingSpinnerAdapter);
         apartmnetSpinner = findViewById(R.id.apartmentSpinner);
         apartmnetSpinner.setOnItemSelectedListener(this);
-        apartmentSpinnerAdapter = new CustomSpinnerAdapter<>(this,R.layout.custom_spinner_view,apartments);
+        apartmentSpinnerAdapter = new CustomSpinnerAdapter<>(this, R.layout.custom_spinner_view, apartments);
         apartmnetSpinner.setAdapter(apartmentSpinnerAdapter);
         singUpBtn.setOnClickListener(this);
     }
@@ -106,22 +109,22 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 //        CollectionReference apartment = builingsRef.document(buildings.get(position).get_id()).collection("apartments");
-                    if(parent.getAdapter().equals(buildingSpinnerAdapter)) {
-                        choosenBuildingId = buildings.get(position).get_id();
-                        apartments.clear();
-                        for (int i = 1; i <= buildings.get(position).getMaxApartments(); i++) {
-                            apartments.add(i);
-                        }
-                        apartmentSpinnerAdapter.notifyDataSetChanged();
-                    }
-                    if(parent.getAdapter().equals(apartmentSpinnerAdapter)){
-                        choosenApartment = apartments.get(position);
-                        apartments.add(choosenApartment);
-                        Set<Integer> listWithoutDuplicates = new LinkedHashSet<Integer>(apartments);
-                        apartments.clear();
-                        apartments.addAll(listWithoutDuplicates);
-                        apartmentSpinnerAdapter.notifyDataSetChanged();
-                    }
+        if (parent.getAdapter().equals(buildingSpinnerAdapter)) {
+            choosenBuildingId = buildings.get(position).get_id();
+            apartments.clear();
+            for (int i = 1; i <= buildings.get(position).getMaxApartments(); i++) {
+                apartments.add(i);
+            }
+            apartmentSpinnerAdapter.notifyDataSetChanged();
+        }
+        if (parent.getAdapter().equals(apartmentSpinnerAdapter)) {
+            choosenApartment = apartments.get(position);
+            apartments.add(choosenApartment);
+            Set<Integer> listWithoutDuplicates = new LinkedHashSet<Integer>(apartments);
+            apartments.clear();
+            apartments.addAll(listWithoutDuplicates);
+            apartmentSpinnerAdapter.notifyDataSetChanged();
+        }
 
     }
 
@@ -131,51 +134,56 @@ public class UserRegisterActivity extends AppCompatActivity implements AdapterVi
     }
 
     @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+    }
+
+    @Override
     public void onClick(View v) {
-        Apartment apartmentToSave = new Apartment(choosenApartment);
-        db.collection("building")
+        // check if apartment is exist
+        Query query = db.collection("building")
                 .document(choosenBuildingId).collection("apartments")
-                .add(apartmentToSave).addOnSuccessListener(new OnSuccessListener<DocumentReference>() {
+                .whereEqualTo("apartmentNumber", choosenApartment);
+        query.get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
             @Override
-            public void onSuccess(DocumentReference documentReference) {
-                mAuth.createUserWithEmailAndPassword(email.getText().toString(), password.getText().toString())
-                        .addOnCompleteListener( new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    // Sign in success, update UI with the signed-in user's information
-                                    Log.d("successed", "createUserWithEmail:success");
-                                    FirebaseUser user = mAuth.getCurrentUser();
-                                    String uid = user.getUid();
-                                    Log.d("added new apartment", "DocumentSnapshot added with ID: " + documentReference.getId());
-                                    String apartId = documentReference.getId();
-                                    documentReference.update("_id",apartId);
-                                    // Write a message to the database.0
-                                    User newUser = new User(firstName.getText().toString(),lastName.getText().toString(),
-                                            uid,email.getText().toString(),apartId,choosenBuildingId);
-                                    db.collection("users").document(uid).set(newUser)
-                                            .addOnSuccessListener(new OnSuccessListener<Void>() {
-                                                @Override
-                                                public void onSuccess(Void aVoid) {
-                                                    Toast.makeText(UserRegisterActivity.this, "success", Toast.LENGTH_SHORT).show();
-                                                }
-                                            });
-
-                                } else {
-                                    // If sign in fails, display a message to the user.
-                                    Log.w("Failer", "createUserWithEmail:failure", task.getException());
-                                    Toast.makeText(UserRegisterActivity.this, "Authentication failed.",
-                                            Toast.LENGTH_SHORT).show();
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+                if (task.isSuccessful()) {
+                    for (QueryDocumentSnapshot document : task.getResult()) {
+                        if (document.exists()) {
+                            Toast.makeText(UserRegisterActivity.this, "Sorry The Apartment is already registered", Toast.LENGTH_LONG).show();
+                        } else {
+                            FirebaseUser user = mAuth.getCurrentUser();
+                            String uid = user.getUid();
+                            Apartment apartmentToSave = new Apartment(choosenApartment);
+                            db.collection("building")
+                                    .document(choosenBuildingId).collection("apartments").add(apartmentToSave).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
+                                @Override
+                                public void onComplete(@NonNull Task<DocumentReference> task) {
+                                    if (task.isSuccessful()) {
+                                        DocumentReference documentReference = task.getResult();
+                                        String apartId = documentReference.getId();
+                                        documentReference.update("_id", apartId);
+                                        // Write a message to the database.0
+                                        User newUser = new User(firstName.getText().toString(), lastName.getText().toString(),
+                                                uid, email.getText().toString(), apartId, choosenBuildingId);
+                                        db.collection("users").document(uid).set(newUser)
+                                                .addOnSuccessListener(new OnSuccessListener<Void>() {
+                                                    @Override
+                                                    public void onSuccess(Void aVoid) {
+                                                        startActivity(new Intent(UserRegisterActivity.this, AuthActivity.class));
+                                                        Toast.makeText(UserRegisterActivity.this, "success", Toast.LENGTH_SHORT).show();
+                                                    }
+                                                });
+                                    }
                                 }
-                            }
-                        });
-            }})
-                .addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.w("Error", "Error adding document", e);
+                            });
+                        }
                     }
-                });
 
+                } else {
+                    Log.d("llsl", "Error getting documents: ", task.getException());
+                }
+            }
+        });
     }
 }
