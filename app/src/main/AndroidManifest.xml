@@ -11,6 +11,9 @@
         android:theme="@style/Theme.VaadApp">
         <activity android:name=".Activities.BuilldingCasherActivity"  android:theme="@style/Theme.VaadApp.NoActionBar"></activity>
         <activity
+            android:name=".Activities.ChatActivity"
+            android:theme="@style/Theme.VaadApp.NoActionBar" />
+        <activity
             android:name=".Activities.UserPayments"
             android:theme="@style/Theme.VaadApp.NoActionBar" />
         <activity

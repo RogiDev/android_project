@@ -29,6 +29,9 @@ public class LoginFragment extends Fragment {
         // Required empty public constructor
     }
 
+    private Button btnChat;
+
+
     @Override
     public void onAttach(@NonNull Context context) {
         super.onAttach(context);
@@ -58,6 +61,14 @@ public class LoginFragment extends Fragment {
         btnLogin.setBackgroundColor(Color.rgb(52,52,52));
         btnRegister.setBackgroundColor(Color.rgb(52,52,52));
         btnAdminRegister.setBackgroundColor(Color.rgb(52,52,52));
+        btnChat = view.findViewById(R.id.button2);
+
+        btnChat.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                listener.onChatPressed();
+            }
+        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -70,7 +81,7 @@ public class LoginFragment extends Fragment {
             public void onClick(View v) {
                 try {
 
-                listener.onLoginPressed(loginEmailInput.getText().toString(),loginPasswordInput.getText().toString());
+                    listener.onLoginPressed(loginEmailInput.getText().toString(),loginPasswordInput.getText().toString());
                 }catch (Exception e){
                     Toast.makeText(getContext(),"The field can't be empty!",Toast.LENGTH_LONG).show();
                 }
@@ -89,5 +100,7 @@ public class LoginFragment extends Fragment {
         public void onLoginPressed(String email,String password);
         public void onRegisterPressed();
         public void onRegisterAdminPressed();
+        public void onChatPressed();
+
     }
 }

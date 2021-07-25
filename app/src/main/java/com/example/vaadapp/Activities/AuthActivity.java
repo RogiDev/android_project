@@ -90,6 +90,12 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
         fragmentTransaction.commit();
     }
 
+    @Override
+    public void onChatPressed() {
+        Intent ChatActivity = new Intent(this, ChatActivity.class);
+        startActivity(ChatActivity);
+    }
+
 
     @Override
     public void onSingUpAdminPressed(String password, int seniority, String firstName, String lastName, String identity, String email) {
