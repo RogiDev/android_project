@@ -39,6 +39,7 @@ public class ChatActivity extends AppCompatActivity {
     Button btnSend;
     String SERVER_IP;
     int SERVER_PORT;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,7 +50,6 @@ public class ChatActivity extends AppCompatActivity {
         etMessage = findViewById(R.id.etMessage);
         btnSend = findViewById(R.id.btnSend);
         Button btnConnect = findViewById(R.id.btnConnect);
-        Log.i("1", "1");
 
         btnConnect.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -59,8 +59,6 @@ public class ChatActivity extends AppCompatActivity {
                 SERVER_PORT = Integer.parseInt(etPort.getText().toString().trim());
                 Thread1 = new Thread(new Thread1());
                 Thread1.start();
-                Log.i("2", "2");
-
             }
         });
         btnSend.setOnClickListener(new View.OnClickListener() {
@@ -74,6 +72,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         });
     }
+
     private PrintWriter output;
     private BufferedReader input;
     class Thread1 implements Runnable {
@@ -96,6 +95,7 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
     }
+
     class Thread2 implements Runnable {
         @Override
         public void run() {
@@ -120,11 +120,13 @@ public class ChatActivity extends AppCompatActivity {
             }
         }
     }
+
     class Thread3 implements Runnable {
         private String message;
         Thread3(String message) {
             this.message = message;
         }
+
         @Override
         public void run() {
             output.write(message);
