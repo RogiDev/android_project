@@ -5,29 +5,23 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.example.vaadapp.Fragments.MainFragment;
+import com.example.vaadapp.Chat.ChatActivity;
 import com.example.vaadapp.Fragments.Manager.AdminRegisterFragment;
 import com.example.vaadapp.Fragments.LoginFragment;
-import com.example.vaadapp.Models.Building;
 import com.example.vaadapp.Models.Manager;
-import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
-import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.FirebaseFirestore;
 // authentication activity
 public class AuthActivity extends AppCompatActivity implements LoginFragment.onLoginFragmentBtnSelected ,AdminRegisterFragment.AdminRegisterEvents {
@@ -88,12 +82,6 @@ public class AuthActivity extends AppCompatActivity implements LoginFragment.onL
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.auth_container, new AdminRegisterFragment()).addToBackStack(null);
         fragmentTransaction.commit();
-    }
-
-    @Override
-    public void onChatPressed() {
-        Intent ChatActivity = new Intent(this, ChatActivity.class);
-        startActivity(ChatActivity);
     }
 
 

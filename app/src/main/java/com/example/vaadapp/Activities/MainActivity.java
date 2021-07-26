@@ -20,11 +20,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
 
+import com.example.vaadapp.Chat.ChatActivity;
 import com.example.vaadapp.Fragments.CreateBuilding;
 import com.example.vaadapp.Fragments.MainFragment;
 import com.example.vaadapp.Models.Apartment;
 import com.example.vaadapp.Models.Building;
-import com.example.vaadapp.Models.Payments;
+import com.example.vaadapp.Models.Manager;
 import com.example.vaadapp.Models.User;
 import com.example.vaadapp.R;
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -38,7 +39,10 @@ import com.google.firebase.firestore.DocumentReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
-import java.util.Objects;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.Socket;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener, CreateBuilding.createBuildingListener{
 
@@ -54,6 +58,10 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
      CollectionReference managerDb = db.collection("managers");
      CollectionReference building = db.collection("building");
      FirebaseAuth mAuth;
+     static Socket socket;
+     static InputStreamReader inputStreamReader;
+     static BufferedReader bufferedReader;
+     static PrintWriter printWriter;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -95,6 +103,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(actionBarDrawerToggle);
         actionBarDrawerToggle.setDrawerIndicatorEnabled(true);
         actionBarDrawerToggle.syncState();
+
         fragmentManager = getSupportFragmentManager();
         fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.replace(R.id.fragment_container, new MainFragment()).addToBackStack(null);;
@@ -155,6 +164,40 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             startActivity(new Intent(MainActivity.this, BuilldingCasherActivity.class));
         }
 
+        if(item.getItemId() == R.id.chatBtn){
+            userDb.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            User user = document.toObject(User.class);
+                            Intent intent = new Intent(MainActivity.this,ChatActivity.class);
+                            intent.putExtra("user_first_name",user.getFirstName().toString());
+                            intent.putExtra("user_last_name",user.getLastName().toString());
+                            startActivity(intent);
+                        }
+                    }
+
+
+                }
+            });
+            managerDb.document(mAuth.getCurrentUser().getUid()).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
+                @Override
+                public void onComplete(@NonNull Task<DocumentSnapshot> task) {
+                    if (task.isSuccessful()) {
+                        DocumentSnapshot document = task.getResult();
+                        if (document.exists()) {
+                            Manager user = document.toObject(Manager.class);
+                            Intent intent = new Intent(MainActivity.this, ChatActivity.class);
+                            intent.putExtra("user_first_name", user.getFirstName().toString());
+                            intent.putExtra("user_last_name", user.getLastName().toString());
+                            startActivity(intent);
+                        }
+                    }
+                }
+            });
+        }
         return true;
     }
 

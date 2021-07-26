@@ -61,14 +61,6 @@ public class LoginFragment extends Fragment {
         btnLogin.setBackgroundColor(Color.rgb(52,52,52));
         btnRegister.setBackgroundColor(Color.rgb(52,52,52));
         btnAdminRegister.setBackgroundColor(Color.rgb(52,52,52));
-        btnChat = view.findViewById(R.id.button2);
-
-        btnChat.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                listener.onChatPressed();
-            }
-        });
 
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -100,7 +92,6 @@ public class LoginFragment extends Fragment {
         public void onLoginPressed(String email,String password);
         public void onRegisterPressed();
         public void onRegisterAdminPressed();
-        public void onChatPressed();
 
     }
 }

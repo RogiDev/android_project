@@ -20,4 +20,8 @@
         android:icon="@android:drawable/ic_dialog_dialer"
         android:title="Building Cash"
         android:visible="false" />
+    <item
+        android:id="@+id/chatBtn"
+        android:icon="@drawable/people_24"
+        android:title="Chat" />
 </menu>
